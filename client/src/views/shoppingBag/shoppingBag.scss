@@ -1,0 +1,57 @@
+.bag {
+    text-align: center;
+
+    h4 {
+        margin-top: 70px;
+    }
+
+    .bag__catalog {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-top: 100px;
+
+        .bagBook {
+            position: relative;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            max-width: 400px;
+            width: 300px;
+            padding: 10px 0 50px 0;
+            flex-direction: column;
+            word-wrap: break-word;
+            margin: 20px 0 0 5%;
+            background-color: #f3f3f3;
+
+            .quantity {
+                max-width: 45px;
+                max-height: 25px;
+                margin-left: 5%;
+            }
+        }
+    }
+
+    .bag__clear {
+        margin: 100px auto;
+    }
+
+    .bag__clear button {
+        background-color: #ff3232;
+        width: 170px;
+        height: 35px;
+        color: #fff;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        transition: .3s;
+    }
+
+    .bag__clear button:hover {
+        background-color: #ff1616;
+        width: 175px;
+        height: 40px;
+        border-radius: 5px;
+    }
+    
+}

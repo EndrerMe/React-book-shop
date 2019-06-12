@@ -1,0 +1,132 @@
+.editAuthors {
+    
+    .btn-info {
+        margin: 130px 0 0 0px;
+    }
+
+    .allAuthors {
+        .author {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            width: 100%;
+            border: 1px solid #000;
+            margin-top: 25px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .authorInfo {
+            border: 1px solid #000;
+            padding-bottom: 10px;
+            width: 100%;
+
+            .author {
+                h4, p {
+                    margin: 0 0 0 20px;
+                }
+            }
+
+            span {
+                margin-top: 20px;
+            }
+
+            .changeAuthor {
+                margin: 0 0 0 10%;
+                color: green;
+                cursor: pointer;
+            }
+
+            .deleteAuthor {
+                color: red;
+                cursor: pointer;
+                margin-left: 45%;
+            }
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+    }
+    .changeAuthorName,
+        
+
+        .modal {
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            background-color: rgba(0, 0, 0, 0.712);
+            z-index: 9999;
+        }
+            .main {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                width: 60vw;
+                min-width: 280px;
+                padding-bottom: 50px;
+                margin: auto;
+                margin-top: 100px;
+                background-color: rgb(255, 255, 255);
+
+                .close {
+                    position: absolute;
+                    right: 0;
+                    width: 30px;
+                    height: 30px;
+                    background-color: rgb(255, 0, 0);
+
+                    .clos__line,
+                    .clos__line::after {
+                        display: block;
+                        position: absolute;
+                        width: 20px;
+                        height: 3px;
+                        top: 7px; left: 5px;
+                        background-color: #fff;
+                        transform: rotate(45deg)
+                    } 
+                    .clos__line::after {
+                        content: '';
+                        top: 0; left: 0;
+                        transform: rotate(90deg);
+                    }
+                }
+
+                .modalAuthorName {
+                    margin-top: 50px;
+                }
+        }
+    pagination-controls {
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+    }
+
+    span {
+        margin: 5px 15px 0 0;
+    }
+}
+
+
+
+@media (min-width: 768px) {
+    .author,
+    .authorInfo {
+        width: 70%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .author,
+    .authorInfo {
+        width: 50%;
+    }
+}

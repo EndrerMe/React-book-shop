@@ -1,0 +1,152 @@
+.editBooks {
+
+    .btn {
+        margin: 130px 0 0 0;
+    }
+
+    .btn-success {
+        float: right;
+    }
+
+    .allBooks {
+        .book {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 25px;
+            border: 1px solid #000;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .bookInfo {
+            border: 1px solid #000;
+            padding-bottom: 20px;
+            width: 100%;
+
+            h4, p {
+                margin: 20px 0 0 50px;
+            }
+
+            span {
+                margin-top: 20px;
+            }
+
+            .changeBook {
+                margin: 0 0 0 10%;
+                color: green;
+                cursor: pointer;
+            }
+            
+            .deleteBook {
+                color: red;
+                cursor: pointer;
+                margin-left: 45%;
+            }
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 30px;
+        }
+    }
+
+    .modal,
+    .newBookModal,
+    .newAuthor {
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.712);
+        z-index: 9999;
+
+        .main {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            width: 60vw;
+            min-width: 280px;
+            padding-bottom: 50px;
+            margin: auto;
+            margin-top: 100px;
+            background-color: rgb(255, 255, 255);
+
+            .close {
+                position: absolute;
+                right: 0;
+                width: 30px;
+                height: 30px;
+                background-color: rgb(255, 0, 0);
+            }
+
+            .modalNewAuthor {
+                display: flex;
+                flex-direction: column;
+                margin-top: 25px;
+            }
+            
+            .clos__line,
+            .clos__line::after {
+                display: block;
+                position: absolute;
+                width: 20px;
+                height: 3px;
+                top: 7px; left: 5px;
+                background-color: #fff;
+                transform: rotate(45deg)
+            } 
+            
+            .clos__line::after {
+                content: '';
+                top: 0; left: 0;
+                transform: rotate(90deg);
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 50px;
+                
+
+                textarea {
+                    width: 15vw;
+                    min-width: 178px;
+                    height: 15vw;
+                    min-height: 150px;
+                    margin-top: 20px;
+                }
+
+                .multiselect {
+                    width: 15vw;
+                    min-width: 178px;
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+
+    span {
+        margin: 5px 15px 0 0;
+    }
+}
+
+@media (min-width: 768px) {
+    .book,
+    .bookInfo {
+        width: 70%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .book,
+    .bookInfo {
+        width: 50%;
+    }
+}
