@@ -36,7 +36,7 @@ export class BooksController {
     }
 
     @Post("deleteBook")
-    public async deleteBook(@Body() bookid: any): Promise<Books> {
+    public async deleteBook(@Body() bookid: {id: number}): Promise<Books> {
         return await this.booksService.deleteBook(bookid.id)
     }
 

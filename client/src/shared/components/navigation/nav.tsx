@@ -1,4 +1,7 @@
+// Vendors
 import React from "react"
+
+// Style
 import "./nav.scss"
 
 interface iNav {

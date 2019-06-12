@@ -89,6 +89,8 @@ export default class Books extends React.Component<any,any> {
 
     private async addToMultiselectValue(option: any) {
 
+        console.log(option)
+
         await this.setState((prevState: any) => ({
             newBook: {
                 ...prevState.newBook,
