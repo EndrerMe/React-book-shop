@@ -9,10 +9,12 @@ import { booksAuthorsController } from './booksAuthors.controller';
 import { booksAuthorsService } from '../../shared/services/booksAuthors.service';
 // Providers
 import { booksAuthorsProviders } from './booksAuthors.providers';
+import { AuthorsModule } from '../authors/authors.module';
 
 @Module({
   imports: [
-    DatabaseModule
+    DatabaseModule,
+    AuthorsModule
   ],
   controllers: [
     booksAuthorsController

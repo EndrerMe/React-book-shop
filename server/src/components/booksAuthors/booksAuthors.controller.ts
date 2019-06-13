@@ -28,4 +28,9 @@ export class booksAuthorsController {
     public async getAuthorBooks(@Body() id: BookAuthorModel): Promise<BooksAuthors[]> {
         return this.booksAuthorsService.getAuthorForBooks(id.bookid)
     }
+
+    @Post("findByAuthor")
+    public async findByAuthor(@Body() author: {author: string}): Promise<BooksAuthors[]> {
+        return this.booksAuthorsService.findByAuthor(author.author)
+    }
 }

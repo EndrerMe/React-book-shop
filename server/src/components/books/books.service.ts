@@ -8,6 +8,8 @@ import { booksAuthorsService } from "../../shared/services/booksAuthors.service"
 // Models
 import { BookModel } from './model/book.model';
 import { AuthorModel } from '../booksAuthors/model/Author.model';
+import { Op } from 'sequelize';
+import { is } from 'bluebird';
 
 @Injectable()
 export class BooksService {
@@ -109,5 +111,71 @@ export class BooksService {
             where: {},
           })
 
+    }
+
+    public async findByTitle(title: string): Promise<Books[]> {
+        let isBook: Books[];
+
+        await this.BOOKS_REPOSITORY.findAll<Books>({
+            where: {title: title}
+        }).then((res) => {
+            isBook = res
+        })
+
+        if (isBook.length) {
+            return isBook
+        } else {
+            throw new HttpException({
+                status: HttpStatus.NOT_FOUND,
+                error: "Book not found"
+            }, 404);
+        }
+ 
+    }
+
+    public async findByType(type: string): Promise<Books[]> {
+        let isBook: Books[]; 
+
+        await this.BOOKS_REPOSITORY.findAll<Books>({
+            where: {type: type}
+        }).then((res) => {
+            isBook = res
+        })
+
+        if (isBook.length) {
+            return isBook
+        } else {
+            throw new HttpException({
+                status: HttpStatus.NOT_FOUND,
+                error: "Book not found"
+            }, 404);
+        }
+ 
+    }
+
+    public async findByPrice(price: {min: number, max: number}): Promise<Books[]> {
+        let isBook: Books[];
+        
+        let priceRage = {
+            min: +price.min,
+            max: +price.max
+        }
+
+        await this.BOOKS_REPOSITORY.findAll<Books>({
+            where: {price: {
+                [Op.in]: [priceRage.min, priceRage.max]
+            }}
+        }).then((res) => {
+            isBook = res
+        })
+
+        if (isBook.length) {
+            return isBook
+        }else {
+            throw new HttpException({
+                status: HttpStatus.NOT_FOUND,
+                error: "Book not found"
+            }, 404);
+        } 
     }
 }

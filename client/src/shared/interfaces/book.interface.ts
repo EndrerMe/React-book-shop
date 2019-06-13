@@ -1,4 +1,5 @@
 export default interface IBook{
+    Book?: {};
     idbooks: number;
     title: string;
     description: string;

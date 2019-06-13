@@ -12,14 +12,14 @@ export class UsersService {
 
     public getAllUsers(): Promise<IUser[]> {
         return new Promise((res, rej) => {
-            fetch("http://localhost:3000/users/getAllUsers")
+            fetch("http://localhost:3002/users/getAllUsers")
             .then( res => res.json() )
             .then( (data: any) => { res(data.length)})
         })
     }
 
     public changeUserData(user: IUser): void {
-        axios.post(`http://localhost:3000/users/changeUserData`, user )
+        axios.post(`http://localhost:3002/users/changeUserData`, user )
             .then(res => {
             }
         ) 
@@ -33,7 +33,7 @@ export class UsersService {
     }
 
     public deleteUser(user: IUser): void {
-        axios.post(`http://localhost:3000/users/deleteUser`, user )
+        axios.post(`http://localhost:3002/users/deleteUser`, user )
             .then(res => {
             }
         )
@@ -48,7 +48,7 @@ export class UsersService {
     
     public getUsersForPage(page: number, pageSize: number): Promise<IUser[]> {
         return new Promise((result, rej) => {
-            axios.post(`http://localhost:3000/users/getUsersForPage`, {page, pageSize} )
+            axios.post(`http://localhost:3002/users/getUsersForPage`, {page, pageSize} )
                 .then(res => result(res.data))
         })
     }

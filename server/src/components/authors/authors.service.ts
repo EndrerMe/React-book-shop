@@ -83,5 +83,27 @@ export class AuthorsService {
             where: {},
           })
     }
+
+    public async findAuthorByName(authorName: string): Promise<number> {
+        let isAuthor: any
+
+        await this.AUTHORS_REPOSITORY.findOne<Authors>({
+            where: {
+                authorName: authorName
+            }
+        }).then((res) => {
+            isAuthor = res.idauthors
+        })
+
+        if(isAuthor) {
+            return isAuthor
+        } else {
+            throw new HttpException({
+                status: HttpStatus.NOT_FOUND,
+                error: "Book not found"
+            }, 404);
+        }
+        
+    }
         
 }

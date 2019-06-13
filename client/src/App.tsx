@@ -40,7 +40,17 @@ class App extends React.Component<any, any> {
       activePage: 1,
       totalItemPerPage: 4,
       totalItem: 0,
+
+      searchByBookTitle: null,
+      searchByAuthorName: null,
+      searchByType: null,
+      searchByPrice: {
+        min: null,
+        max: null
+      }
     };
+
+    this.onChangeInput = this.onChangeInput.bind(this);
   }
 
   STORE = []
@@ -62,6 +72,25 @@ class App extends React.Component<any, any> {
 
   }
 
+  private onChangeInput(event: any): void {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    if (name === "min" || name === "max") {
+      this.setState((prevState: any) => ({
+        searchByPrice: {
+            ...prevState.searchByPrice,
+            [name]: value
+        }
+      }));
+    } else {
+      this.setState({
+        [name]: value
+      })
+    }    
+  }
+
   private addToBag(book: IBook): void {
     bagService.addToBag(book)
   }
@@ -71,6 +100,58 @@ class App extends React.Component<any, any> {
     bookService.getBookForPage(this.state.activePage, this.state.totalItemPerPage).then((res) => {
       this.setState({
         data: res
+      })
+    })
+  }
+
+  private searchByBookTitle(): void{
+    let title = this.state.searchByBookTitle;
+
+    bookService.findByTitle(title).then((res) => {
+      let books = res
+      this.setState({
+        data: books
+      })
+    })
+  }
+
+  private seacrhByAuthor(): void {
+    let author = this.state.searchByAuthorName;
+
+    bookService.findByAuthor(author).then((res) => {
+      let books = res
+      let data: IBook[] = [];
+
+      for (let i = 0; i < books.length; i++) {
+        data.push(books[i].Book as any)
+      }
+
+      this.setState({
+        data: data
+      })
+    })
+  }
+
+  private searchByType(): void {
+    let type = this.state.searchByType;
+
+    bookService.findByType(type).then((res) => {
+      let books = res
+
+      this.setState({
+        data: books
+      })
+    })
+  }
+
+  private searchByPrice(): void {
+    let price = this.state.searchByPrice;
+
+    bookService.findByPrice(price).then((res) => {
+      let books = res
+
+      this.setState({
+        data: books
       })
     })
   }
@@ -88,6 +169,57 @@ class App extends React.Component<any, any> {
             {
               return(
                 <div className="catalog">
+                    <div className="filter">
+                      <div className="filter__search">
+                        <div className="filter__main">
+                            <input type="text" 
+                            name="searchByBookTitle"
+                            value={this.state.searchByBookTitle || ""}
+                            placeholder="Название" 
+                            onChange={this.onChangeInput}/>
+                            <button
+                            onClick={() => this.searchByBookTitle()}>Поиск</button>
+                        </div>
+                        <div className="filter__main">
+                          <input type="text" 
+                          name="searchByAuthorName"
+                          value={this.state.searchByAuthorName || ""}
+                          placeholder="Автор" 
+                          onChange={this.onChangeInput}/>
+                          <button
+                          onClick={() => this.seacrhByAuthor()}>Поиск</button>
+                        </div>
+                        <div className="filter__main">
+                          <input type="text" 
+                          name="searchByType"
+                          value={this.state.searchByType || ""}
+                          placeholder="Тип" 
+                          onChange={this.onChangeInput}/>
+                          <button
+                          onClick={() => this.searchByType()}>Поиск</button>
+                        </div>
+                      </div>
+                      <form className="filter__price">
+                        <input type="number" 
+                        name="min" 
+                        value={this.state.searchByPrice.min || ""}
+                        placeholder="Минимальная" 
+                        onChange={this.onChangeInput}/>
+                        <input type="number" 
+                        name="max" 
+                        value={this.state.searchByPrice.max || ""}
+                        placeholder="Максимальная" 
+                        onChange={this.onChangeInput}/>
+                        <input className="btn btn-primary" type="button" value="Поиск" 
+                        onClick={() => this.searchByPrice()}/>
+                      </form>
+
+                      <div className="clearFilter">
+                        <button 
+                        onClick={() => this.componentDidMount()}>Сброс фильтров</button>
+                      </div>
+
+                    </div>
                   {data.map((book: any) => {
                     return (
                       <div className="book" key={book.idbooks}>

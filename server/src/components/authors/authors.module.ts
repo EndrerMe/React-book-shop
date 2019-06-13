@@ -20,6 +20,9 @@ import { authorsProviders } from './authors.provier';
   providers: [
     AuthorsService,
     ...authorsProviders
+  ],
+  exports: [
+    AuthorsService
   ]
 })
 export class AuthorsModule {}

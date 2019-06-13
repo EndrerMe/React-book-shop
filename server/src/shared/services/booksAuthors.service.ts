@@ -1,5 +1,5 @@
 // Vendors
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
 
 // Entitys
 import { BooksAuthors } from '../../components/booksAuthors/booksAuthors.entity';
@@ -8,13 +8,15 @@ import { Authors } from '../../components/authors/authors.entity';
 // Models
 import { BookAuthorModel } from '../../components/booksAuthors/model/booksAuthors.model';
 import { AuthorModel } from '../../components/booksAuthors/model/Author.model';
+import { AuthorsService } from '../../components/authors/authors.service';
 
 @Injectable()
 export class booksAuthorsService {
 
     constructor(
         @Inject('BooksAuthors_REPOSITORY') 
-        private BooksAuthors_REPOSITORY: typeof BooksAuthors
+        private BooksAuthors_REPOSITORY: typeof BooksAuthors,
+        private authorsService: AuthorsService
         ) {
         }    
 
@@ -108,5 +110,28 @@ export class booksAuthorsService {
         }
 
         return
+    }
+
+    public async findByAuthor(author: string): Promise<BooksAuthors[]> {
+        let authorId: number;
+        BooksAuthors.belongsTo(Books, {targetKey: "idbooks" ,foreignKey: "bookid"})
+        let isAuthor = await this.authorsService.findAuthorByName(author).then((res) => {
+            authorId = res
+        });
+
+        if (authorId !== undefined) {
+            return await this.BooksAuthors_REPOSITORY.findAll<BooksAuthors>({
+                include: [Books],
+                where: {
+                    authorid: authorId
+                }
+            })
+        } 
+        else {
+            throw new HttpException({
+                status: HttpStatus.NOT_FOUND,
+                error: "Book not found"
+            }, 404);
+        }
     }
 }

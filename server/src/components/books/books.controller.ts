@@ -44,4 +44,21 @@ export class BooksController {
     public async getBookForPage(@Body() page: PaginationModel): Promise<Books[]> {
         return await this.booksService.getBookForPage(page.page, page.pageSize)
     }
+
+    @Post("findByTitle")
+    public async findByTitle(@Body() title: {title: string}): Promise<Books[]> {
+        return await this.booksService.findByTitle(title.title)
+    }
+
+    @Post("findByPrice")
+    public async findByPrice(@Body() price: {min: number, max: number}): Promise<Books[]> {
+
+        console.log(price)
+        return await this.booksService.findByPrice(price)
+    }
+
+    @Post("findByType")
+    public async findByType(@Body() type: {type: string}): Promise<Books[]> {
+        return await this.booksService.findByType(type.type)
+    }
 }

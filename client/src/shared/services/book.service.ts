@@ -13,18 +13,77 @@ export class BookService {
 
     public getAllBooks(): Promise<IBook[]> {
         return new Promise((resBook, rej) => {
-            fetch("http://localhost:3000/books/getAllBooks")
+            fetch("http://localhost:3002/books/getAllBooks")
             .then( res => res.json() )
             .then((data) => {
-                console.log(data)
                 resBook(data.length)
             })
         })
     }
 
+    public findByTitle(title: string): Promise<IBook[]> {
+        return new Promise((resBook, rej) => {
+            axios.post(`http://localhost:3002/books/findByTitle`,  {title})
+                .then(res => {
+                    resBook(res.data)
+                })  
+                .catch((err) => {
+                    if (err.response) {
+                        if (err.response.status === 404) {
+                            notify(err.response.data.error)
+                        }
+                    }
+                })
+        })
+    }
+
+    public findByAuthor(author: string): Promise<IBook[]> {
+        return new Promise((resBook, rej) => {
+            axios.post(`http://localhost:3002/booksAuthors/findByAuthor`,  {author})
+                .then(res => {
+                    resBook(res.data)
+                })  
+                .catch((err) => {
+                    if (err.response) {
+                        if (err.response.status === 404) {
+                            notify(err.response.data.error)
+                        }
+                    }
+                })
+        })
+    }
+
+    public findByType(type: string): Promise<IBook[]> {
+        return new Promise((resBook, rej) => {
+            axios.post(`http://localhost:3002/books/findByType`,  {type})
+                .then(res => resBook(res.data))  
+                .catch((err) => {
+                    if (err.response) {
+                        if (err.response.status === 404) {
+                            notify(err.response.data.error)
+                        }
+                    }
+                })
+        })
+    }
+
+    public findByPrice(price: {min: number, max: number}): Promise<IBook[]> {
+        return new Promise((resBook, rej) => {
+            axios.post(`http://localhost:3002/books/findByPrice`,  price)
+                .then(res => resBook(res.data))  
+                .catch((err) => {
+                    if (err.response) {
+                        if (err.response.status === 404) {
+                            notify(err.response.data.error)
+                        }
+                    }
+                })
+        })
+    }
+
     public getAuthorForBooks(bookid: number): Promise<IAuthor[]> {
         return new Promise((resAuthor, rej) => {
-            axios.post(`http://localhost:3000/booksAuthors/getAuthorBooks`, {bookid} )
+            axios.post(`http://localhost:3002/booksAuthors/getAuthorBooks`, {bookid} )
                 .then((res: any) => {
                     resAuthor(res.data)
                 })  
@@ -33,7 +92,7 @@ export class BookService {
 
     public getBookWidthAuthors(id: string): Promise<IBook[]> {
         return new Promise((resBook, rej) => {
-            fetch(`http://localhost:3000/booksAuthors/getBook/` + id)
+            fetch(`http://localhost:3002/booksAuthors/getBook/` + id)
             .then( res => res.json() )
             .then( (data: any) => {
                 const book = data[0].Book;
@@ -48,7 +107,7 @@ export class BookService {
 
     public addNewBook(newBook: IBook): Promise<IBook> {
         return new Promise((resBook, rej) => {
-            axios.post(`http://localhost:3000/books/addNewBook`, newBook )
+            axios.post(`http://localhost:3002/books/addNewBook`, newBook )
                 .then(res => resBook(res.data))  
                 .catch((err) => {
                     if (err.response) {
@@ -62,7 +121,7 @@ export class BookService {
 
     public changeBook(changedBook: IBook): Promise<IBook> {
         return new Promise((resBook, rej) => {
-            axios.post(`http://localhost:3000/books/chagneBook`,  changedBook)
+            axios.post(`http://localhost:3002/books/chagneBook`,  changedBook)
                 .then(res => resBook(res.data))  
                 .catch((err) => {
                     if (err.response) {
@@ -76,7 +135,7 @@ export class BookService {
 
     public deleteBook(id: number): Promise<IBook> {
         return new Promise((resBook, rej) => {
-            axios.post(`http://localhost:3000/books/deleteBook`,  {id})
+            axios.post(`http://localhost:3002/books/deleteBook`,  {id})
                 .then(res => resBook(res.data))  
                 .catch((err) => {
                     if (err.response) {
@@ -90,13 +149,13 @@ export class BookService {
 
     public getDateForPagination() {
         return new Promise((result, rej) => {
-            axios.get("http://localhost:3000/books/getDateForPagination")
+            axios.get("http://localhost:3002/books/getDateForPagination")
         })
     }
 
     public getBookForPage(page: number, pageSize: number) {
         return new Promise((result, rej) => {
-            axios.post("http://localhost:3000/books/getBookForPage", {page, pageSize})
+            axios.post("http://localhost:3002/books/getBookForPage", {page, pageSize})
                 .then(res => result(res.data))
         })
     }

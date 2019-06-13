@@ -51,7 +51,6 @@ export default class Authors extends React.Component<any, any> {
     }
 
     private onChangeInput(event: any): void {
-        console.log(typeof(event))
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;

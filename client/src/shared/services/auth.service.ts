@@ -15,7 +15,7 @@ export class AuthService {
 
     public registUser(user: IAuth): void {
         console.log(user)
-        axios.post(`http://localhost:3000/auth/regist`, user )
+        axios.post(`http://localhost:3002/auth/regist`, user )
             .then(res => {
                 
             }
@@ -29,7 +29,7 @@ export class AuthService {
     }    
 
     public async login(user: IAuth) {
-        await axios.post(`http://localhost:3000/auth/login`, user )
+        await axios.post(`http://localhost:3002/auth/login`, user )
             .then (res => {
                 console.log(res)
                 if (res.status === 201) {
