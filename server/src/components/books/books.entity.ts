@@ -23,5 +23,5 @@ export class Books extends Model<Books> {
     description: string;
 
     @Column
-    price: string;
+    price: number;
 }

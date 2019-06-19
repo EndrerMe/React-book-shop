@@ -9,7 +9,7 @@ export function booksFetchDataSuccess(books: any) {
 
 export function booksFetchData(url: any) {
     return (dispatch: any) => {
-        axios.get("http://localhost:3000/booksAuthors/getAllbooksAuthors")
+        axios.get("http://localhost:3002/booksAuthors/getAllbooksAuthors")
         .then((res: any) => {
             dispatch(booksFetchData(res.data))
         })

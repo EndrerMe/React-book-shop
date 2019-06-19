@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // Interfaces
 import { IAuth } from '../interfaces/auth.interface';
+import { environment } from '../../enviroments/enviroments';
 
 toast.configure()
 const notify = (text: string) => toast(text);
@@ -15,7 +16,7 @@ export class AuthService {
 
     public registUser(user: IAuth): void {
         console.log(user)
-        axios.post(`http://localhost:3002/auth/regist`, user )
+        axios.post(`${environment.apiUrl}/auth/regist`, user )
             .then(res => {
                 
             }
@@ -29,7 +30,7 @@ export class AuthService {
     }    
 
     public async login(user: IAuth) {
-        await axios.post(`http://localhost:3002/auth/login`, user )
+        await axios.post(`${environment.apiUrl}/auth/login`, user )
             .then (res => {
                 console.log(res)
                 if (res.status === 201) {

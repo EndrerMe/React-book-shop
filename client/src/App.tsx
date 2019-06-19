@@ -108,6 +108,8 @@ class App extends React.Component<any, any> {
     let title = this.state.searchByBookTitle;
 
     bookService.findByTitle(title).then((res) => {
+      this.books = []
+
       let books = res
       this.setState({
         data: books
@@ -119,6 +121,8 @@ class App extends React.Component<any, any> {
     let author = this.state.searchByAuthorName;
 
     bookService.findByAuthor(author).then((res) => {
+      this.books = []
+
       let books = res
       let data: IBook[] = [];
 
@@ -136,6 +140,8 @@ class App extends React.Component<any, any> {
     let type = this.state.searchByType;
 
     bookService.findByType(type).then((res) => {
+      this.books = []
+
       let books = res
 
       this.setState({
@@ -148,6 +154,8 @@ class App extends React.Component<any, any> {
     let price = this.state.searchByPrice;
 
     bookService.findByPrice(price).then((res) => {
+      this.books = []
+
       let books = res
 
       this.setState({

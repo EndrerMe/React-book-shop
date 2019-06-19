@@ -9,7 +9,6 @@ import { booksAuthorsService } from "../../shared/services/booksAuthors.service"
 import { BookModel } from './model/book.model';
 import { AuthorModel } from '../booksAuthors/model/Author.model';
 import { Op } from 'sequelize';
-import { is } from 'bluebird';
 
 @Injectable()
 export class BooksService {
@@ -155,17 +154,11 @@ export class BooksService {
 
     public async findByPrice(price: {min: number, max: number}): Promise<Books[]> {
         let isBook: Books[];
-        
-        let priceRage = {
-            min: +price.min,
-            max: +price.max
-        }
 
         await this.BOOKS_REPOSITORY.findAll<Books>({
-            where: {price: {
-                [Op.in]: [priceRage.min, priceRage.max]
-            }}
+            where: {[Op.and]: [{price: {[Op.gt] : +price.min}}, {price: {[Op.lt] : +price.max}}]}
         }).then((res) => {
+            console.log(res)
             isBook = res
         })
 

@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 // Interfaces
 import { IAuthor } from '../interfaces/author.interface';
+import { environment } from '../../enviroments/enviroments';
 
 toast.configure()
 const notify = (text: string) => toast(text);
@@ -11,7 +12,7 @@ const notify = (text: string) => toast(text);
 export class AuthorService {
     public getAuthorById(id: string): Promise<IAuthor[]> {
         return new Promise((response, rej) => {
-            fetch(`http://localhost:3002/booksAuthors/getBookById/` + id)
+            fetch(`${environment.apiUrl}/booksAuthors/getBookById/` + id)
             .then( res => res.json() )
             .then( (data: any) => { response(data)})
         },
@@ -19,7 +20,7 @@ export class AuthorService {
 
     public getAllAuthors(): Promise<IAuthor[]> {
         return new Promise((res, rej) => {
-            fetch(`http://localhost:3002/authors/getAllAuthors/`)
+            fetch(`${environment.apiUrl}/authors/getAllAuthors/`)
             .then( res => res.json() )
             .then( (data: any) => { res(data)})
         },
@@ -27,7 +28,7 @@ export class AuthorService {
 
     public getAllAuthorsLength(): Promise<IAuthor[]> {
         return new Promise((res, rej) => {
-            fetch(`http://localhost:3002/authors/getAllAuthors/`)
+            fetch(`${environment.apiUrl}/authors/getAllAuthors/`)
             .then( res => res.json() )
             .then( (data: any) => { res(data.length)})
         },
@@ -35,13 +36,13 @@ export class AuthorService {
 
     public addNewAuthor(author: IAuthor): Promise<IAuthor> {
         return new Promise((response, rej) => {
-            axios.post(`http://localhost:3002/authors/addNewAuthor`, author )
+            axios.post(`${environment.apiUrl}/authors/addNewAuthor`, author )
                 .then(res => response(res.data))      
         })      
     }
 
     public deleteAuthor(author: IAuthor): void {
-        axios.post(`http://localhost:3002/authors/deleteAuthor`, author )
+        axios.post(`${environment.apiUrl}/authors/deleteAuthor`, author )
             .then(res => {
                 console.log(res.data);
             }
@@ -55,7 +56,7 @@ export class AuthorService {
     }
 
     public changeAuthor(author: IAuthor): void {
-        axios.post(`http://localhost:3000/authors/changeAuthor`, author )
+        axios.post(`${environment.apiUrl}/authors/changeAuthor`, author )
             .then(res => {
                 console.log(res.data);
             }
@@ -70,7 +71,7 @@ export class AuthorService {
 
     public getAuthorsForPage(page: number, pageSize: number): Promise<IAuthor[]> {
         return new Promise((result, rej) => {
-            axios.post(`http://localhost:3000/authors/getAuthorsForPage`, {page, pageSize})
+            axios.post(`${environment.apiUrl}/authors/getAuthorsForPage`, {page, pageSize})
             .then((data: any) => {result(data.data)})
         })
     }

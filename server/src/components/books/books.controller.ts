@@ -52,8 +52,6 @@ export class BooksController {
 
     @Post("findByPrice")
     public async findByPrice(@Body() price: {min: number, max: number}): Promise<Books[]> {
-
-        console.log(price)
         return await this.booksService.findByPrice(price)
     }
 
