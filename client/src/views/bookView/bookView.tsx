@@ -5,6 +5,7 @@ import "./bookView.scss"
 // Services
 import { BookService } from "../../shared/services/book.service";
 import { BagService } from "../../shared/services/bag.service";
+// Interfaces
 import IBook from "../../shared/interfaces/book.interface";
 
 

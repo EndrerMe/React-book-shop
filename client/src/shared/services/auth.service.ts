@@ -16,7 +16,7 @@ export class AuthService {
 
     public registUser(user: IAuth): void {
         console.log(user)
-        axios.post(`${environment.apiUrl}/auth/regist`, user )
+        axios.post(`${environment.mySql.databaseURL}/auth/regist`, user )
             .then(res => {
                 
             }
@@ -30,7 +30,7 @@ export class AuthService {
     }    
 
     public async login(user: IAuth) {
-        await axios.post(`${environment.apiUrl}/auth/login`, user )
+        await axios.post(`${environment.mySql.databaseURL}/auth/login`, user )
             .then (res => {
                 console.log(res)
                 if (res.status === 201) {

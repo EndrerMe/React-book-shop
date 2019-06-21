@@ -14,7 +14,7 @@ export class BookService {
 
     public getAllBooks(): Promise<IBook[]> {
         return new Promise((resBook, rej) => {
-            fetch(`${environment.apiUrl}/books/getAllBooks`)
+            fetch(`${environment.mySql.databaseURL}/books/getAllBooks`)
             .then( res => res.json() )
             .then((data) => {
                 resBook(data.length)
@@ -24,7 +24,7 @@ export class BookService {
 
     public findByTitle(title: string): Promise<IBook[]> {
         return new Promise((resBook, rej) => {
-            axios.post(`${environment.apiUrl}/books/findByTitle`,  {title})
+            axios.post(`${environment.mySql.databaseURL}/books/findByTitle`,  {title})
                 .then(res => {
                     resBook(res.data)
                 })  
@@ -40,7 +40,7 @@ export class BookService {
 
     public findByAuthor(author: string): Promise<IBook[]> {
         return new Promise((resBook, rej) => {
-            axios.post(`${environment.apiUrl}/booksAuthors/findByAuthor`,  {author})
+            axios.post(`${environment.mySql.databaseURL}/booksAuthors/findByAuthor`,  {author})
                 .then(res => {
                     resBook(res.data)
                 })  
@@ -56,7 +56,7 @@ export class BookService {
 
     public findByType(type: string): Promise<IBook[]> {
         return new Promise((resBook, rej) => {
-            axios.post(`${environment.apiUrl}/books/findByType`,  {type})
+            axios.post(`${environment.mySql.databaseURL}/books/findByType`,  {type})
                 .then(res => resBook(res.data))  
                 .catch((err) => {
                     if (err.response) {
@@ -70,7 +70,7 @@ export class BookService {
 
     public findByPrice(price: {min: number, max: number}): Promise<IBook[]> {
         return new Promise((resBook, rej) => {
-            axios.post(`${environment.apiUrl}/books/findByPrice`,  price)
+            axios.post(`${environment.mySql.databaseURL}/books/findByPrice`,  price)
                 .then(res => resBook(res.data))  
                 .catch((err) => {
                     if (err.response) {
@@ -84,7 +84,7 @@ export class BookService {
 
     public getAuthorForBooks(bookid: number): Promise<IAuthor[]> {
         return new Promise((resAuthor, rej) => {
-            axios.post(`${environment.apiUrl}/booksAuthors/getAuthorBooks`, {bookid} )
+            axios.post(`${environment.mySql.databaseURL}/booksAuthors/getAuthorBooks`, {bookid} )
                 .then((res: any) => {
                     resAuthor(res.data)
                 })  
@@ -93,7 +93,7 @@ export class BookService {
 
     public getBookWidthAuthors(id: string): Promise<IBook[]> {
         return new Promise((resBook, rej) => {
-            fetch(`${environment.apiUrl}/booksAuthors/getBook/` + id)
+            fetch(`${environment.mySql.databaseURL}/booksAuthors/getBook/` + id)
             .then( res => res.json() )
             .then( (data: any) => {
                 const book = data[0].Book;
@@ -108,7 +108,7 @@ export class BookService {
 
     public addNewBook(newBook: IBook): Promise<IBook> {
         return new Promise((resBook, rej) => {
-            axios.post(`${environment.apiUrl}/books/addNewBook`, newBook )
+            axios.post(`${environment.mySql.databaseURL}/books/addNewBook`, newBook )
                 .then(res => resBook(res.data))  
                 .catch((err) => {
                     if (err.response) {
@@ -122,7 +122,7 @@ export class BookService {
 
     public changeBook(changedBook: IBook): Promise<IBook> {
         return new Promise((resBook, rej) => {
-            axios.post(`${environment.apiUrl}/books/chagneBook`,  changedBook)
+            axios.post(`${environment.mySql.databaseURL}/books/chagneBook`,  changedBook)
                 .then(res => resBook(res.data))  
                 .catch((err) => {
                     if (err.response) {
@@ -136,7 +136,7 @@ export class BookService {
 
     public deleteBook(id: number): Promise<IBook> {
         return new Promise((resBook, rej) => {
-            axios.post(`${environment.apiUrl}/books/deleteBook`,  {id})
+            axios.post(`${environment.mySql.databaseURL}/books/deleteBook`,  {id})
                 .then(res => resBook(res.data))  
                 .catch((err) => {
                     if (err.response) {
@@ -150,13 +150,13 @@ export class BookService {
 
     public getDateForPagination() {
         return new Promise((result, rej) => {
-            axios.get(`${environment.apiUrl}/books/getDateForPagination`)
+            axios.get(`${environment.mySql.databaseURL}/books/getDateForPagination`)
         })
     }
 
     public getBookForPage(page: number, pageSize: number) {
         return new Promise((result, rej) => {
-            axios.post(`${environment.apiUrl}/books/getBookForPage`, {page, pageSize})
+            axios.post(`${environment.mySql.databaseURL}/books/getBookForPage`, {page, pageSize})
                 .then(res => result(res.data))
         })
     }
