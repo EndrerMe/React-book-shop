@@ -101,20 +101,11 @@ nav {
         background-color: transparent;
         z-index: 9998;
     }
-}
 
-
-
-
-
-
-
-
-
-
-
-@media (min-width: 1200px) {
-    .nav {
-        left: 92%;
+    @media (min-width: 1200px) {
+        .nav {
+            left: 92%;
+        }
     }
 }
+

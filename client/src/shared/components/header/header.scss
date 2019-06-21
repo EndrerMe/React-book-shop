@@ -42,23 +42,22 @@ header {
             }
         }
     }
-}
 
-
-@media (min-width: 576px) {
-    .user {
-        margin-left: 75%;
+    @media (min-width: 576px) {
+        .user {
+            margin-left: 75%;
+        }
     }
-}
-
-@media (min-width: 768px) {
-    .user {
-        margin-left: 80%;
+    
+    @media (min-width: 768px) {
+        .user {
+            margin-left: 80%;
+        }
     }
-}
-
-@media (min-width: 1200px) {
-    .user {
-        margin-left: 87%;
+    
+    @media (min-width: 1200px) {
+        .user {
+            margin-left: 87%;
+        }
     }
 }

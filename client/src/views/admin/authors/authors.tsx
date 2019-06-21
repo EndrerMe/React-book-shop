@@ -5,9 +5,9 @@ import Pagination from "react-js-pagination";
 // Style
 import "./authors.scss"
 // Services
-import { AuthorService } from "../../../shared/services/author.service";
+import { AuthorService } from "../../../shared/services";
 // Interfaces
-import { IAuthor } from "../../../shared/interfaces/author.interface";
+import { IAuthor } from "../../../shared/interfaces";
 
 const authorService = new AuthorService();
 

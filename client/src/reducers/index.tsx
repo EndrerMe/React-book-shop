@@ -1,4 +1,7 @@
+// Vendors
 import { combineReducers } from "redux"
+
+// Components
 import { books } from "./book"
 
 const allReducers = combineReducers ({

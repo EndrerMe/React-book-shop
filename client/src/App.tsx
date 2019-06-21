@@ -11,7 +11,6 @@ import './App.scss';
 // Components
 import Header from './shared/components/header/header';
 import Login from './views/login/login';
-import IBook from './shared/interfaces/book.interface';
 import Registraton from './views/regist/regist';
 import ShoppingBag from './views/shoppingBag/shoppingBag';
 import Book from './views/bookView/bookView';
@@ -19,12 +18,13 @@ import Authors from './views/admin/authors/authors';
 import Books from './views/admin/books/books';
 import Users from './views/admin/users/users';
 // Services
-import { BagService } from './shared/services/bag.service';
-import { BookService } from './shared/services/book.service';
+import { BagService, BookService } from './shared/services';
 // Actions
 import { booksFetchData } from "./actions/books"
 // Guards
-import { PrivateRoute } from './shared/guards/privateRote';
+import { PrivateRoute } from './shared/guards';
+// Interfaces 
+import { IBook } from './shared/interfaces';
 
 const HISTORY = createBrowserHistory()
 const bagService = new BagService()

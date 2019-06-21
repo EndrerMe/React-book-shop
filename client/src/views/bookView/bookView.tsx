@@ -3,10 +3,9 @@ import React from "react"
 // Style
 import "./bookView.scss"
 // Services
-import { BookService } from "../../shared/services/book.service";
-import { BagService } from "../../shared/services/bag.service";
+import { BookService, BagService } from "../../shared/services";
 // Interfaces
-import IBook from "../../shared/interfaces/book.interface";
+import { IBook } from "../../shared/interfaces";
 
 
 interface data {

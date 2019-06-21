@@ -6,10 +6,9 @@ import Pagination from "react-js-pagination";
 // Style
 import "./books.scss"
 // Services
-import { BookService } from "../../../shared/services/book.service";
-import { AuthorService } from "../../../shared/services/author.service";
+import { BookService, AuthorService } from "../../../shared/services";
 // Interfaces
-import IBook from "../../../shared/interfaces/book.interface";
+import { IBook } from "../../../shared/interfaces";
 
 const bookService = new BookService();
 const authorService = new AuthorService();

@@ -4,7 +4,7 @@ import React from "react"
 // Style
 import "./login.scss"
 // Services
-import { AuthService } from "../../shared/services/auth.service";
+import { AuthService } from "../../shared/services";
 
 const auth = new AuthService();
 

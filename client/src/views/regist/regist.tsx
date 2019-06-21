@@ -7,10 +7,9 @@ import { ToastContainer, toast } from 'react-toastify';
 // Style
 import "./regist.scss"
 // Enums
-import { Gender } from "../../shared/enums/gender.enum";
-import { userRole } from "../../shared/enums/userRole.enum";
+import { Gender, userRole } from "../../shared/enums";
 // Serivces
-import { AuthService } from "../../shared/services/auth.service";
+import { AuthService } from "../../shared/services";
 
 
 const auth = new AuthService();

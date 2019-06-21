@@ -1,18 +1,16 @@
 // Vendors
 import React from "react"
 import Pagination from "react-js-pagination";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 // Style
 import "./users.scss"
 // Services
-import { AuthService } from "../../../shared/services/auth.service";
-import { UsersService } from "../../../shared/services/users.service";
+import { AuthService, UsersService } from "../../../shared/services";
 // Enums
-import { Gender } from "../../../shared/enums/gender.enum";
-import { userRole } from "../../../shared/enums/userRole.enum";
+import { Gender, userRole } from "../../../shared/enums";
 // Interfaces
-import { IUser } from "../../../shared/interfaces/user.interface";
+import { IUser } from "../../../shared/interfaces";
 
 const authService = new AuthService();
 const usersService = new UsersService()
