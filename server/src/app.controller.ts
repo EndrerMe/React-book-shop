@@ -2,7 +2,7 @@
 import { Controller, Get } from '@nestjs/common';
 
 // Services
-import { AppService } from 'src/app.service';
+import { AppService } from './app.service';
 
 @Controller()
 export class AppController {

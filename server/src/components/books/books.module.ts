@@ -2,19 +2,19 @@
 import { Module } from '@nestjs/common';
 
 // Controlles
-import { BooksController } from 'src/components/books/books.controller';
+import { BooksController } from './books.controller';
 // Services
-import { BooksService } from 'src/components/books/books.service';
+import { BooksService } from './books.service';
 // Providers
-import { booksProviders } from 'src/components/books/book.provider';
+import { booksProviders } from './book.provider';
 // Modules
-import { DatabaseModule } from 'src/database/database.module';
-import {  } from 'src/components/booksAuthors/booksAuthors.module';
+import { DatabaseModule } from './../../database/database.module';
+import { BooksAuthorsModule } from '../booksAuthors/booksAuthors.module';
 
 @Module({
   imports: [
     DatabaseModule,
-    ,
+    BooksAuthorsModule,
   ],
   controllers: [
     BooksController,

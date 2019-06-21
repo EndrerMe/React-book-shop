@@ -2,13 +2,13 @@
 import { Module } from '@nestjs/common';
 
 // Services
-import { UsersService } from 'src/components/users/users.service';
+import { UsersService } from './users.service';
 // Controllers
-import { UsersController } from 'src/components/users/users.controller';
+import { UsersController } from './users.controller';
 // Modules
-import { DatabaseModule } from 'src/database/database.module';
+import { DatabaseModule } from './../../database/database.module';
 // Providers
-import { userProviders } from 'src/components/users/users.provider';
+import { userProviders } from './users.provider';
 
 @Module({
   imports: [

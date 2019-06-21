@@ -3,7 +3,7 @@ import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 
 // Entitys
-import { Users } from 'src/components/auth/auth.entity';
+import { Users } from '../auth/auth.entity';
 
 @Injectable()
 export class UsersService {
@@ -78,6 +78,7 @@ export class UsersService {
     public async getUsersForPage(page: number, pageSize: number): Promise<Users[]> {
         const offset = (page - 1) * pageSize;
         const limit = pageSize;
+
         return await this.USERS_REPOSITORY.findAll<Users>({
             limit: limit,
             offset: offset,

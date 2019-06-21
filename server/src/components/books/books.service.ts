@@ -1,14 +1,14 @@
 // Vendors
 import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
-import { Op } from 'sequelize';
 
 // Entitys
 import { Books } from './books.entity';
 // Serivces
-import { BooksAuthorsService } from 'src/shared/services/booksAuthors.service';
+import { BooksAuthorsService } from '../../shared/services/booksAuthors.service';
 // Models
-import { BookModel } from 'src/components/books/model/book.model';
-import { AuthorModel } from 'src/components/booksAuthors/model/Author.model';
+import { BookModel } from './model/book.model';
+import { AuthorModel } from '../booksAuthors/model/Author.model';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class BooksService {
@@ -26,6 +26,7 @@ export class BooksService {
         const book = await this.BOOKS_REPOSITORY.findOne<Books>({
             where: {idbooks: id},
         });
+
         return book;
     }
 
@@ -69,6 +70,7 @@ export class BooksService {
                 where: {idbooks: changedBook.bookid},
             });
         }
+
         return;
     }
 
@@ -101,11 +103,12 @@ export class BooksService {
     public async getBookForPage(page: number, pageSize: number): Promise<Books[]> {
         const offset = (page - 1) * pageSize;
         const limit = pageSize;
+
         return this.BOOKS_REPOSITORY.findAll<Books>({
             limit: limit,
             offset: offset,
             where: {},
-        });
+          });
 
     }
 
@@ -126,6 +129,7 @@ export class BooksService {
                 error: 'Book not found',
             }, 404);
         }
+
     }
 
     public async findByType(type: string): Promise<Books[]> {

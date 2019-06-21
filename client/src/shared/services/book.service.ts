@@ -1,9 +1,9 @@
 // Vendors
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 //Interfaces
-import IBook from '../interfaces/book.interface';
+import { IBook } from '../interfaces/book.interface';
 import { IAuthor } from '../interfaces/author.interface';
 import { environment } from '../../enviroments/enviroments';
 

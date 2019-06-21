@@ -2,11 +2,11 @@
 import { Controller, Get, Param, Body, Post } from '@nestjs/common';
 
 // Services
-import { BooksAuthorsService } from 'src/shared/services/booksAuthors.service';
+import { BooksAuthorsService } from '../../shared/services/booksAuthors.service';
 // Entitys
-import { BooksAuthors } from 'src/components/booksAuthors/booksAuthors.entity';
+import { BooksAuthors } from './booksAuthors.entity';
 // Models
-import { BookAuthorModel } from 'src/components/booksAuthors/model/booksAuthors.model';
+import { BookAuthorModel } from './model/booksAuthors.model';
 
 @Controller('booksAuthors')
 export class BooksAuthorsController {

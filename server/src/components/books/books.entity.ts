@@ -2,7 +2,7 @@
 import { Table, Model, Column, PrimaryKey, ForeignKey } from 'sequelize-typescript';
 
 // Entitys
-import { BooksAuthors } from 'src/components/booksAuthors/booksAuthors.entity';
+import { BooksAuthors } from '../booksAuthors/booksAuthors.entity';
 
 @Table({
     timestamps: false,

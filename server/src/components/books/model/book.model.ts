@@ -4,5 +4,5 @@ export class BookModel {
     type: string;
     authors: [];
     description: string;
-    price: number;
+    price: number
 }

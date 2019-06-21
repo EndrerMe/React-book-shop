@@ -1,5 +1,5 @@
 // Entitys
-import { Users } from 'src/components/auth/auth.entity';
+import { Users } from './auth.entity';
 
 export const authProviders = [
   {

@@ -1,5 +1,5 @@
 // interfaces
-import IBook from "../interfaces/book.interface";
+import { IBook } from "../interfaces";
 
 export class BagService {
     public bag: IBook[] = [] as IBook[];

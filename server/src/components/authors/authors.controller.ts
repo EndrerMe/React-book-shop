@@ -2,11 +2,11 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 
 // Serivces
-import { AuthorsService } from 'src/components/authors/authors.service';
+import { AuthorsService } from './authors.service';
 // Entitys
-import { Authors } from 'src/components/authors/authors.entity';
+import { Authors } from './authors.entity';
 // Models
-import { PaginationModel } from 'src/shared/models/pagination.model';
+import { PaginationModel } from './../../shared/models/pagination.model';
 
 @Controller('authors')
 export class AuthorsController {

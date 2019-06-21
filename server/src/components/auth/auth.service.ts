@@ -4,14 +4,15 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
 // Entitys
-import { Users } from 'src/components/auth/auth.entity';
+import { Users } from './auth.entity';
 // Strategy
 import { JwtPayload } from 'src/strategy/model/jwt.model';
 
 @Injectable()
 export class AuthService {
     constructor(
-        @Inject('AUTH_REPOSITORY')private readonly AUTH_REPOSITORY: typeof Users,
+        @Inject('AUTH_REPOSITORY')
+        private readonly AUTH_REPOSITORY: typeof Users,
         private readonly jwtService: JwtService,
     ) {}
 

@@ -2,11 +2,11 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 
 // Services
-import { UsersService } from 'src/components/users/users.service';
+import { UsersService } from './users.service';
 // Entitys
-import { Users } from 'src/components/auth/auth.entity';
+import { Users } from '../auth/auth.entity';
 // Models
-import { PaginationModel } from 'src/shared/models/pagination.model';
+import { PaginationModel } from './../../shared/models/pagination.model';
 
 @Controller('users')
 export class UsersController {

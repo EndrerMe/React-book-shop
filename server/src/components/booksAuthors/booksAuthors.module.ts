@@ -2,14 +2,14 @@
 import { Module } from '@nestjs/common';
 
 // Modules
-import { DatabaseModule } from 'src/database/database.module';
-import { AuthorsModule } from 'src/components/authors/authors.module';
+import { DatabaseModule } from '../../database/database.module';
 // Controllers
-import { BooksAuthorsController } from 'src/components/booksAuthors/booksAuthors.controller';
+import { BooksAuthorsController } from './booksAuthors.controller';
 // Services
-import { BooksAuthorsService } from 'src/shared/services/booksAuthors.service';
+import { BooksAuthorsService } from '../../shared/services/booksAuthors.service';
 // Providers
-import { booksAuthorsProviders } from 'src/components/booksAuthors/booksAuthors.providers';
+import { booksAuthorsProviders } from './booksAuthors.providers';
+import { AuthorsModule } from '../authors/authors.module';
 
 @Module({
   imports: [

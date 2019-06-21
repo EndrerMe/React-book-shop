@@ -2,12 +2,13 @@
 import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
 
 // Entitys
-import { Authors } from 'src/components/authors/authors.entity';
+import { Authors } from './authors.entity';
 
 @Injectable()
 export class AuthorsService {
     constructor(
-        @Inject('AUTHORS_REPOSITORY') private readonly AUTHORS_REPOSITORY: typeof Authors,
+        @Inject('AUTHORS_REPOSITORY')
+        private readonly AUTHORS_REPOSITORY: typeof Authors,
     ) {}
 
     public async findAllAuthors(): Promise<Authors[]> {
@@ -68,9 +69,9 @@ export class AuthorsService {
                     },
                 });
         }
+
         return;
     }
-
     public async getAuthorsForPage(page: number, pageSize: number): Promise<Authors[]> {
         const offset = (page - 1) * pageSize;
         const limit = pageSize;
@@ -82,7 +83,7 @@ export class AuthorsService {
     }
 
     public async findAuthorByName(authorName: string): Promise<number> {
-        let isAuthor: number;
+        let isAuthor: any;
 
         await this.AUTHORS_REPOSITORY.findOne<Authors>({
             where: {
