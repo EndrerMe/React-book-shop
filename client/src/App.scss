@@ -1,108 +1,108 @@
 .catalog {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 120px;
+    width: 100%;
+
+    .book {
         position: relative;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        max-width: 400px;
+        width: 300px;
+        padding: 10px 0 50px 0;
+        flex-direction: column;
+        word-wrap: break-word;
+        margin-top: 30px;
+        margin: 30px 0 0 30px;
+        background-color: #f3f3f3;
+        cursor: pointer;
+
+        .book__buy {
+            position: absolute;
+            bottom: 7%;
+            padding: 6px 25px 5px 25px;
+            background-color: #E5E095;
+            outline: none;
+            border: none;
+            color: #000;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        button:hover {
+            background-color: #C9C37C;;
+        }
+
+        .showBook {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 70%;
+            background-color: rgba($color: #000000, $alpha: .8);
+
+            .showBook__title {
+                color: #fff;
+            }
+
+        }
+
+    }
+
+    .book:hover .showBook {
+        display: flex;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-top: 30px;
+    }
+}
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-top: 0px;
+    margin-left: 30px;
+
+    .filter__search {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        margin-top: 120px;
-        width: 100%;
-
-        .book {
-            position: relative;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            max-width: 400px;
-            width: 300px;
-            padding: 10px 0 50px 0;
-            flex-direction: column;
-            word-wrap: break-word;
-            margin-top: 30px;
-            margin: 30px 0 0 30px;
-            background-color: #f3f3f3;
-            cursor: pointer;
-
-            .book__buy {
-                position: absolute;
-                bottom: 7%;
-                padding: 6px 25px 5px 25px;
-                background-color: #E5E095;
-                outline: none;
-                border: none;
-                color: #000;
-                cursor: pointer;
-                transition: .3s;
-            }
-
-            button:hover {
-                background-color: #C9C37C;;
-            }
-
-            .showBook {
-                display: none;
-                justify-content: center;
-                align-items: center;
-                position: absolute;
-                top: 0;
-                width: 100%;
-                height: 70%;
-                background-color: rgba($color: #000000, $alpha: .8);
-
-                .showBook__title {
-                    color: #fff;
-                }
-
-            }
-
-        }
-
-        .book:hover .showBook {
-            display: flex;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            margin-top: 30px;
-        }
+        margin-top: 50px;
     }
-
-    .filter {
+    
+    .filter__search input {
+        margin-left: 30px;
+        margin-top: 15px;
+    }
+    
+    .filter__price {
+        position: relative;
         display: flex;
         flex-direction: column;
-        flex-wrap: wrap;
-        margin-top: 0px;
-        margin-left: 30px;
-
-        .filter__search {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            margin-top: 50px;
-        }
-        
-        .filter__search input {
-            margin-left: 30px;
-            margin-top: 15px;
-        }
-        
-        .filter__price {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            width: 180px;
-            top: 30px; left: 30px;
-        }
-        
-        .filter__price input {
-            margin-top: 15px;
-        }
-        
-        .filter__price button {
-            margin-top: 10px;
-        }
-
-        .clearFilter {
-            margin: 55px 0 0 50px;
-        }
+        width: 180px;
+        top: 30px; left: 30px;
     }
+    
+    .filter__price input {
+        margin-top: 15px;
+    }
+    
+    .filter__price button {
+        margin-top: 10px;
+    }
+
+    .clearFilter {
+        margin: 55px 0 0 50px;
+    }
+}

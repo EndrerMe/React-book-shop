@@ -52,6 +52,20 @@
             width: 100%;
             margin-top: 30px;
         }
+
+        @media (min-width: 768px) {
+            .book,
+            .bookInfo {
+                width: 70%;
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .book,
+            .bookInfo {
+                width: 50%;
+            }
+        }
     }
 
     .modal,
@@ -134,19 +148,5 @@
 
     span {
         margin: 5px 15px 0 0;
-    }
-}
-
-@media (min-width: 768px) {
-    .book,
-    .bookInfo {
-        width: 70%;
-    }
-}
-
-@media (min-width: 1200px) {
-    .book,
-    .bookInfo {
-        width: 50%;
     }
 }

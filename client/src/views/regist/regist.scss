@@ -28,6 +28,9 @@
                 position: relative;
                 left: 15px;
             }
+
+            input.ng-touched.ng-invalid {border:solid red 2px;}
+            input.ng-touched.ng-valid {border:solid green 2px;}
         }
 
         button {
@@ -48,6 +51,3 @@
         background-color: #baffb5;
     }
 }
-
-input.ng-touched.ng-invalid {border:solid red 2px;}
-input.ng-touched.ng-valid {border:solid green 2px;}
