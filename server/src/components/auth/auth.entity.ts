@@ -1,3 +1,4 @@
+// Vendors
 import { Table, Model, Column, PrimaryKey } from 'sequelize-typescript';
 
 @Table({

@@ -1,4 +1,7 @@
+// Vendors
 import { Sequelize } from 'sequelize-typescript';
+
+// Entitys
 import { BooksAuthors } from '../components/booksAuthors/booksAuthors.entity';
 import { Books } from './../components/books/books.entity';
 import { Authors } from './../components/authors/authors.entity';

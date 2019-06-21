@@ -1,5 +1,6 @@
 // Vendors
 import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
+import { Op } from 'sequelize';
 
 // Entitys
 import { Books } from './books.entity';
@@ -8,7 +9,6 @@ import { BooksAuthorsService } from '../../shared/services/booksAuthors.service'
 // Models
 import { BookModel } from './model/book.model';
 import { AuthorModel } from '../booksAuthors/model/Author.model';
-import { Op } from 'sequelize';
 
 @Injectable()
 export class BooksService {
