@@ -2,135 +2,131 @@
 import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
 
 // Entitys
-import { BooksAuthors } from '../../components/booksAuthors/booksAuthors.entity';
-import { Books } from '../../components/books/books.entity';
-import { Authors } from '../../components/authors/authors.entity';
+import { BooksAuthors } from 'src/components/booksAuthors/booksAuthors.entity';
+import { Books } from 'src/components/books/books.entity';
+import { Authors } from 'src/components/authors/authors.entity';
 // Models
-import { BookAuthorModel } from '../../components/booksAuthors/model/booksAuthors.model';
-import { AuthorModel } from '../../components/booksAuthors/model/Author.model';
-import { AuthorsService } from '../../components/authors/authors.service';
+import { BookAuthorModel } from 'src/components/booksAuthors/model/booksAuthors.model';
+import { AuthorModel } from 'src/components/booksAuthors/model/Author.model';
+import { AuthorsService } from 'src/components/authors/authors.service';
 
 @Injectable()
-export class booksAuthorsService {
+export class BooksAuthorsService {
 
     constructor(
-        @Inject('BooksAuthors_REPOSITORY') 
-        private BooksAuthors_REPOSITORY: typeof BooksAuthors,
-        private authorsService: AuthorsService
+        @Inject('BooksAuthors_REPOSITORY') private BooksAuthors_REPOSITORY: typeof BooksAuthors,
+        private authorsService: AuthorsService,
         ) {
-        }    
+        }
 
     public async findAllBookAndAuthors(): Promise<BooksAuthors[]> {
-        BooksAuthors.belongsTo(Books, {targetKey: "idbooks" ,foreignKey: "bookid"})
-        BooksAuthors.belongsTo(Authors, {targetKey: "idauthors" ,foreignKey: "authorid"})
+        BooksAuthors.belongsTo(Books, {targetKey: 'idbooks' , foreignKey: 'bookid'});
+        BooksAuthors.belongsTo(Authors, {targetKey: 'idauthors' , foreignKey: 'authorid'});
         return await this.BooksAuthors_REPOSITORY.findAll<BooksAuthors>({
-            include: [Books, Authors]
+            include: [Books, Authors],
         });
     }
 
     public async getBookById(id: number): Promise<BooksAuthors> {
-        BooksAuthors.belongsTo(Books, {targetKey: "idbooks" ,foreignKey: "bookid"})
-        BooksAuthors.belongsTo(Authors, {targetKey: "idauthors" ,foreignKey: "authorid"})
+        BooksAuthors.belongsTo(Books, {targetKey: 'idbooks' , foreignKey: 'bookid'});
+        BooksAuthors.belongsTo(Authors, {targetKey: 'idauthors', foreignKey: 'authorid'});
         return await this.BooksAuthors_REPOSITORY.findOne<BooksAuthors>({
             include: [Books, Authors],
-            where: {idproducts: id}
-        })
+            where: {idproducts: id},
+        });
     }
 
     public async getBook(id: number): Promise<BooksAuthors[]> {
-        BooksAuthors.belongsTo(Books, {targetKey: "idbooks" ,foreignKey: "bookid"})
-        BooksAuthors.belongsTo(Authors, {targetKey: "idauthors" ,foreignKey: "authorid"})
+        BooksAuthors.belongsTo(Books, {targetKey: 'idbooks' , foreignKey: 'bookid'});
+        BooksAuthors.belongsTo(Authors, {targetKey: 'idauthors', foreignKey: 'authorid'});
         const books = this.BooksAuthors_REPOSITORY.findAll<BooksAuthors>({
             include: [Books, Authors],
-            where: {bookid: id}
-        })
+            where: {bookid: id},
+        });
 
-        return books
+        return books;
     }
 
     public async createNewRow(authors: AuthorModel[], book) {
-        let bookIdWithAuthorId: BookAuthorModel[] = [] as BookAuthorModel[];
+        const bookIdWithAuthorId: BookAuthorModel[] = [] as BookAuthorModel[];
         let bookId: number;
         await book.then((res) => {
-            bookId = res.null
-        })
+            bookId = res.null;
+        });
 
         for (let i = 0; i < authors.length; i++) {
             bookIdWithAuthorId[i] = {
                 bookid: bookId,
-                authorid: authors[i].idauthors
-            }
+                authorid: authors[i].idauthors,
+            };
         }
 
         for (let i = 0; i < bookIdWithAuthorId.length; i++) {
-            BooksAuthors.create(bookIdWithAuthorId[i])
+            BooksAuthors.create(bookIdWithAuthorId[i]);
         }
     }
 
     public async getAuthorForBooks(id: number): Promise<BooksAuthors[]> {
-        BooksAuthors.belongsTo(Authors, {targetKey: "idauthors" ,foreignKey: "authorid"})
+        BooksAuthors.belongsTo(Authors, {targetKey: 'idauthors' , foreignKey: 'authorid'});
 
         return this.BooksAuthors_REPOSITORY.findAll<BooksAuthors>({
             include: [Authors],
             where: {
-                bookid: id
-            }
-        })
+                bookid: id,
+            },
+        });
     }
 
     public async deleteBook(id: number): Promise<BooksAuthors> {
-        console.log(id)
         await BooksAuthors.destroy({
             where: {
-                bookid: id
-            }
-        })
+                bookid: id,
+            },
+        });
 
-        return
+        return;
     }
 
     public async chagneRows(bookId: number, authors: Authors[]): Promise<BooksAuthors[]> {
-        let bookIdWithAuthorId: BookAuthorModel[] = [] as BookAuthorModel[];
-        
+        const bookIdWithAuthorId: BookAuthorModel[] = [] as BookAuthorModel[];
         await BooksAuthors.destroy({
             where: {
-                bookid: bookId
-            }
-        })
+                bookid: bookId,
+            },
+        });
 
         for (let i = 0; i < authors.length; i++) {
             bookIdWithAuthorId[i] = {
                 bookid: bookId,
-                authorid: authors[i].idauthors
-            }
+                authorid: authors[i].idauthors,
+            };
         }
 
         for (let i = 0; i < bookIdWithAuthorId.length; i++) {
-            BooksAuthors.create(bookIdWithAuthorId[i])
+            BooksAuthors.create(bookIdWithAuthorId[i]);
         }
 
-        return
+        return;
     }
 
     public async findByAuthor(author: string): Promise<BooksAuthors[]> {
         let authorId: number;
-        BooksAuthors.belongsTo(Books, {targetKey: "idbooks" ,foreignKey: "bookid"})
-        let isAuthor = await this.authorsService.findAuthorByName(author).then((res) => {
-            authorId = res
+        BooksAuthors.belongsTo(Books, {targetKey: 'idbooks', foreignKey: 'bookid'});
+        const isAuthor = await this.authorsService.findAuthorByName(author).then((res) => {
+            authorId = res;
         });
 
         if (authorId !== undefined) {
             return await this.BooksAuthors_REPOSITORY.findAll<BooksAuthors>({
                 include: [Books],
                 where: {
-                    authorid: authorId
-                }
-            })
-        } 
-        else {
+                    authorid: authorId,
+                },
+            });
+        } else {
             throw new HttpException({
                 status: HttpStatus.NOT_FOUND,
-                error: "Book not found"
+                error: 'Book not found',
             }, 404);
         }
     }

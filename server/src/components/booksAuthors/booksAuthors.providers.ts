@@ -1,5 +1,5 @@
 // Entitys
-import { BooksAuthors } from "./booksAuthors.entity";
+import { BooksAuthors } from 'src/components/booksAuthors/booksAuthors.entity';
 
 export const booksAuthorsProviders = [
   {

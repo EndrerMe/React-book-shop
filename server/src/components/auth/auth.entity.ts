@@ -1,7 +1,7 @@
 import { Table, Model, Column, PrimaryKey } from 'sequelize-typescript';
 
 @Table({
-    timestamps: false
+    timestamps: false,
 })
 export class Users extends Model<Users> {
     @PrimaryKey

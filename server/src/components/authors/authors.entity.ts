@@ -5,7 +5,7 @@ import { Table, Model, Column, PrimaryKey, ForeignKey } from 'sequelize-typescri
 import { BooksAuthors } from '../booksAuthors/booksAuthors.entity';
 
 @Table({
-    timestamps: false
+    timestamps: false,
 })
 export class Authors extends Model<Authors> {
     @PrimaryKey

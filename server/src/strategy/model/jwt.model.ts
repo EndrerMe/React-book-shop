@@ -1,7 +1,7 @@
 export class JwtPayload {
-    iduser: Number;
+    iduser: number;
     userName: string;
     userEmail: string;
     userGender: string;
-    userRole: string
+    userRole: string;
 }

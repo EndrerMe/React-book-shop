@@ -2,40 +2,40 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 
 // Serivces
-import { AuthorsService } from './authors.service';
+import { AuthorsService } from 'src/components/authors/authors.service';
 // Entitys
-import { Authors } from './authors.entity';
+import { Authors } from 'src/components/authors/authors.entity';
 // Models
-import { PaginationModel } from './../../shared/models/pagination.model';
+import { PaginationModel } from 'src/shared/models/pagination.model';
 
 @Controller('authors')
 export class AuthorsController {
     constructor(
-        private authorsService: AuthorsService
+        private authorsService: AuthorsService,
     ) {}
 
-    @Get("getAllAuthors")
+    @Get('getAllAuthors')
     public async getAllAuthors(): Promise<Authors[]> {
-        return await this.authorsService.findAllAuthors()
+        return await this.authorsService.findAllAuthors();
     }
 
-    @Post("addNewAuthor")
+    @Post('addNewAuthor')
     public async addNewAuthor(@Body() author: Authors): Promise<Authors> {
-        return await this.authorsService.addNewAuthor(author)
+        return await this.authorsService.addNewAuthor(author);
     }
 
-    @Post("deleteAuthor")
+    @Post('deleteAuthor')
     public async deleteAuthor(@Body() author: Authors): Promise<Authors> {
-        return await this.authorsService.deleteAuthor(author)
+        return await this.authorsService.deleteAuthor(author);
     }
 
-    @Post("changeAuthor")
+    @Post('changeAuthor')
     public async changeAuthor(@Body() author: Authors): Promise<Authors> {
-        return await this.authorsService.changeAuthor(author)
+        return await this.authorsService.changeAuthor(author);
     }
 
-    @Post("getAuthorsForPage")
+    @Post('getAuthorsForPage')
     public async getAuthorsForPage(@Body() page: PaginationModel): Promise<Authors[]> {
-        return await this.authorsService.getAuthorsForPage(page.page, page.pageSize)
+        return await this.authorsService.getAuthorsForPage(page.page, page.pageSize);
     }
 }

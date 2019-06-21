@@ -1,9 +1,9 @@
 // Entitys
-import { Books } from "./books.entity";
+import { Books } from 'src/components/books/books.entity';
 
 export const booksProviders = [
-    {
-      provide: 'BOOKS_REPOSITORY',
-      useValue: Books,
-    },
-  ];
+  {
+    provide: 'BOOKS_REPOSITORY',
+    useValue: Books,
+  },
+];

@@ -1,16 +1,21 @@
+// Vendors
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { DatabaseModule } from './database/database.module';
-import { BooksModule } from './components/books/books.module';
-import { AuthorsModule } from './components/authors/authors.module';
-import { booksAuthorsModule } from './components/booksAuthors/booksAuthors.module';
-import { AuthModule } from './components/auth/auth.module';
-import { UsersModule } from './components/users/users.module';
+
+// Controllers
+import { AppController } from 'src/app.controller';
+// Services
+import { AppService } from 'src/app.service';
+// Modules
+import { DatabaseModule } from 'src/database/database.module';
+import { BooksModule } from 'src/components/books/books.module';
+import { AuthorsModule } from 'src/components/authors/authors.module';
+import { BooksAuthorsModule } from 'src/components/booksAuthors/booksAuthors.module';
+import { AuthModule } from 'src/components/auth/auth.module';
+import { UsersModule } from 'src/components/users/users.module';
 
 @Module({
   imports: [
-    booksAuthorsModule,
+    BooksAuthorsModule,
     DatabaseModule,
     BooksModule,
     AuthorsModule,

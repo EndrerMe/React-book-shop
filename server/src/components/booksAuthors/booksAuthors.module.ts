@@ -2,29 +2,29 @@
 import { Module } from '@nestjs/common';
 
 // Modules
-import { DatabaseModule } from '../../database/database.module';
+import { DatabaseModule } from 'src/database/database.module';
+import { AuthorsModule } from 'src/components/authors/authors.module';
 // Controllers
-import { booksAuthorsController } from './booksAuthors.controller';
+import { BooksAuthorsController } from 'src/components/booksAuthors/booksAuthors.controller';
 // Services
-import { booksAuthorsService } from '../../shared/services/booksAuthors.service';
+import { BooksAuthorsService } from 'src/shared/services/booksAuthors.service';
 // Providers
-import { booksAuthorsProviders } from './booksAuthors.providers';
-import { AuthorsModule } from '../authors/authors.module';
+import { booksAuthorsProviders } from 'src/components/booksAuthors/booksAuthors.providers';
 
 @Module({
   imports: [
     DatabaseModule,
-    AuthorsModule
+    AuthorsModule,
   ],
   controllers: [
-    booksAuthorsController
+    BooksAuthorsController,
   ],
   providers: [
-    booksAuthorsService,
-    ...booksAuthorsProviders
+    BooksAuthorsService,
+    ...booksAuthorsProviders,
   ],
   exports: [
-    booksAuthorsService
-  ]
+    BooksAuthorsService,
+  ],
 })
-export class booksAuthorsModule {}
+export class BooksAuthorsModule {}
