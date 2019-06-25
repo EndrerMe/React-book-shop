@@ -21,7 +21,7 @@ export class AuthorsService {
         });
     }
 
-    public async findAuthorById(authorId): Promise<boolean> {
+    public async findAuthorById(authorId: number): Promise<boolean> {
         const author = this.AUTHORS_REPOSITORY.count({
             where: {idauthors: authorId},
         });

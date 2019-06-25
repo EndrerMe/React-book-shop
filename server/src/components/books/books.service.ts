@@ -22,7 +22,7 @@ export class BooksService {
         return await this.BOOKS_REPOSITORY.findAll<Books>();
     }
 
-    public async findBookById(id): Promise<Books> {
+    public async findBookById(id: number): Promise<Books> {
         const book = await this.BOOKS_REPOSITORY.findOne<Books>({
             where: {idbooks: id},
         });
