@@ -21,7 +21,7 @@ export default class Users extends React.Component<any,any> {
     private gender: string[] = [Gender.male, Gender.female];
     private roles: string[] = [userRole.admin, userRole.commonUser];
 
-    private passValid: string = "^(?=.*\d).{4,8}$";
+    private passValid: RegExp = /^(?=.*\d).{4,8}$/;
 
     constructor (props: any) {
         super(props);
