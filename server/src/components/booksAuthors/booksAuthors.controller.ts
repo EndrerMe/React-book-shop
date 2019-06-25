@@ -20,7 +20,7 @@ export class BooksAuthorsController {
     }
 
     @Get('getBook/:id')
-    public async getBookWidthAuthors(@Param('id') id): Promise<BooksAuthors[]> {
+    public async getBookWidthAuthors(@Param('id') id: number): Promise<BooksAuthors[]> {
         return await this.booksAuthorsService.getBook(id);
     }
 
