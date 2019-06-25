@@ -1,7 +1,7 @@
 // Vendors
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 // Style
 import 'react-toastify/dist/ReactToastify.css';
