@@ -14,7 +14,7 @@ import allReducers from './reducers';
 
 
 const STORE = createStore(
-    allReducers
+    allReducers,
 );
 
 

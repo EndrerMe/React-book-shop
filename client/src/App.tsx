@@ -26,9 +26,9 @@ import { PrivateRoute } from './shared/guards';
 // Interfaces 
 import { IBook } from './shared/interfaces';
 
-const HISTORY = createBrowserHistory()
-const bagService = new BagService()
-const bookService = new BookService()
+const HISTORY = createBrowserHistory();
+const bagService = new BagService();
+const bookService = new BookService();
 
 class App extends React.Component<any, any> {
 
@@ -46,31 +46,30 @@ class App extends React.Component<any, any> {
       searchByType: null,
       searchByPrice: {
         min: null,
-        max: null
+        max: null,
       }
     };
 
     this.onChangeInput = this.onChangeInput.bind(this);
   }
 
-  STORE = []
-  books: [] = []
+  STORE = [];
+  books: [] = [];
 
-  componentDidMount(): void {
+  componentDidMount() {
     bookService.getAllBooks().then((res) => {
       this.setState({
         totalItem: res,
-      })
-    })
+      });
+    });
 
     bookService.getBookForPage(this.state.activePage, this.state.totalItemPerPage)
       .then((res) => {
         this.setState({
-          data: res
-        })
-      })
-
-  }
+          data: res,
+        });
+      });
+  };
 
   private onChangeInput(event: any): void {
     const target = event.target;
@@ -81,88 +80,88 @@ class App extends React.Component<any, any> {
       this.setState((prevState: any) => ({
         searchByPrice: {
             ...prevState.searchByPrice,
-            [name]: value
-        }
+            [name]: value,
+        },
       }));
     } else {
       this.setState({
-        [name]: value
-      })
-    }    
-  }
+        [name]: value,
+      });
+    };
+  };
 
   private addToBag(book: IBook): void {
-    bagService.addToBag(book)
-  }
+    bagService.addToBag(book);
+  };
 
-  private async handlePageChange(pageNumber: number) {
+  private async handlePageChange(pageNumber: number): Promise<void> {
     await this.setState({activePage: pageNumber});
     bookService.getBookForPage(this.state.activePage, this.state.totalItemPerPage).then((res) => {
       this.setState({
-        data: res
-      })
-    })
-  }
+        data: res,
+      });
+    });
+  };
 
   private searchByBookTitle(): void{
     let title = this.state.searchByBookTitle;
 
     bookService.findByTitle(title).then((res) => {
-      this.books = []
+      this.books = [];
 
-      let books = res
+      let books = res;
       this.setState({
-        data: books
-      })
-    })
-  }
+        data: books,
+      });
+    });
+  };
 
   private seacrhByAuthor(): void {
     let author = this.state.searchByAuthorName;
 
     bookService.findByAuthor(author).then((res) => {
-      this.books = []
+      this.books = [];
 
-      let books = res
+      let books = res;
       let data: IBook[] = [];
 
       for (let i = 0; i < books.length; i++) {
-        data.push(books[i].Book as any)
-      }
+        data.push(books[i].Book as any);
+      };
 
       this.setState({
-        data: data
-      })
-    })
-  }
+        data: data,
+      });
+    });
+  };
 
   private searchByType(): void {
     let type = this.state.searchByType;
 
     bookService.findByType(type).then((res) => {
-      this.books = []
+      this.books = [];
 
-      let books = res
+      let books = res;
 
       this.setState({
-        data: books
-      })
-    })
-  }
+        data: books,
+      });
+    });
+  };
 
   private searchByPrice(): void {
     let price = this.state.searchByPrice;
 
     bookService.findByPrice(price).then((res) => {
-      this.books = []
+      this.books = [];
 
-      let books = res
+      let books = res;
 
       this.setState({
-        data: books
-      })
-    })
-  }
+        data: books,
+      });
+    });
+  };
 
   public render() { 
     const { data } = this.state;

@@ -8,7 +8,7 @@ import { Books } from './books.entity';
 import { BooksAuthorsService } from '../../shared/services/booksAuthors.service';
 // Models
 import { BookModel } from './model/book.model';
-import { AuthorModel } from '../booksAuthors/model/Author.model';
+import { AuthorModel } from '../booksAuthors/model/author.model';
 
 @Injectable()
 export class BooksService {
@@ -31,13 +31,13 @@ export class BooksService {
     }
 
     public async addNewBook(book: BookModel): Promise<Books> {
-        let bookid: any;
+        let newBook: any;
         const authors: AuthorModel[] = book.authors;
         delete book.authors;
         const createdBook = await this.BOOKS_REPOSITORY.build(book);
-        bookid = createdBook.save();
+        newBook = createdBook.save();
 
-        this.booksAuthorsService.createNewRow(authors, bookid);
+        this.booksAuthorsService.createNewRow(authors, newBook);
 
         return;
     }

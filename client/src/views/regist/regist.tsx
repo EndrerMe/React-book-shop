@@ -1,7 +1,7 @@
 // Vendors
 import React from "react"
 import { createBrowserHistory } from "history";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 // Style
@@ -14,7 +14,7 @@ import { AuthService } from "../../shared/services";
 
 const auth = new AuthService();
 const history = createBrowserHistory();
-toast.configure()
+toast.configure();
 const notify = (text: string) => toast(text);
 
 export default class Registraton extends React.Component<any, any> {
@@ -35,7 +35,7 @@ export default class Registraton extends React.Component<any, any> {
         this.onChangeInput = this.onChangeInput.bind(this);
     }
 
-    private passValid: string = "^(?=.*\d).{4,8}$"
+    private passValid: RegExp = /^(?=.*\d).{4,8}$/;
 
 
     public onChangeInput(event: any): void {
@@ -45,51 +45,50 @@ export default class Registraton extends React.Component<any, any> {
 
         if (name === "repeatPass") {
             this.setState({
-                [name]: value
-            })
+                [name]: value,
+            });
         } else {
             this.setState((prevState: any) => ({
                 newUser: {
                     ...prevState.newUser,
-                    [name]: value
-                }
+                    [name]: value,
+                },
             }));
-        }
-    }
+        };
+    };
 
     public regist(): void {
-        let user = this.state.newUser
+        let user = this.state.newUser;
 
         if (user.userPass === null) {
-            notify("You password is wrong")
-            return
+            notify("You password is wrong");
+            return;
         }
         
         if (user.userEmail === null ||
             !this.state.emailValid.test(user.userEmail)) {
-            notify("You email is wrong")
-            return
+            notify("You email is wrong");
+            return;
         }   
         
         if (user.userName === null) {
-            notify("You user name is wrong")
-            return
+            notify("You user name is wrong");
+            return;
         }
 
         if (user.userPass !== this.state.repeatPass) {
-            notify("your passwords do not match")
-            return
+            notify("your passwords do not match");
+            return;
         }
 
         if (user.userPass === this.state.repeatPass) {
-            auth.registUser(this.state.newUser)
-            window.location.href = "/Login"
+            auth.registUser(this.state.newUser);
         }
     }
 
 
-    gender: string[] = [Gender.male, Gender.female]
-    roles: string[] = [userRole.admin, userRole.commonUser]
+    gender: string[] = [Gender.male, Gender.female];
+    roles: string[] = [userRole.admin, userRole.commonUser];
 
     public render() {
         return(

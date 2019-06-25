@@ -14,17 +14,17 @@ import { IUser } from "../../../shared/interfaces";
 
 const authService = new AuthService();
 const usersService = new UsersService()
-toast.configure()
+toast.configure();
 const notify = (text: string) => toast(text);
 
 export default class Users extends React.Component<any,any> {
-    private gender: string[] = [Gender.male, Gender.female]
-    private roles: string[] = [userRole.admin, userRole.commonUser]
+    private gender: string[] = [Gender.male, Gender.female];
+    private roles: string[] = [userRole.admin, userRole.commonUser];
 
-    private passValid: string = "^(?=.*\d).{4,8}$"
+    private passValid: string = "^(?=.*\d).{4,8}$";
 
     constructor (props: any) {
-        super(props)
+        super(props);
 
         this.state = {
             changeUserModal: false,
@@ -46,24 +46,24 @@ export default class Users extends React.Component<any,any> {
             activePage: 1,
             totalItemPerPage: 4,
             totalItem: 0,
-            emailValid: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
+            emailValid: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/,
         };
         this.onChangeInput = this.onChangeInput.bind(this);
     }
 
-    componentDidMount(): void {
+    componentDidMount() {
         usersService.getAllUsers().then((res) => {
             this.setState({
-                totalItem: res
-            })
-        })
+                totalItem: res,
+            });
+        });
 
         usersService.getUsersForPage(this.state.activePage, this.state.totalItemPerPage).then((res) => {
             this.setState({
-              users: res
-            })
-          })
-    }
+              users: res,
+            });
+        });
+    };
 
     public onChangeInput(event: any): void {
         const target = event.target;
@@ -72,53 +72,53 @@ export default class Users extends React.Component<any,any> {
 
         if (name === "repeatPass") {
             this.setState({
-                [name]: value
-            })
+                [name]: value,
+            });
         } else {
             this.setState((prevState: any) => ({
                 user: {
                     ...prevState.user,
-                    [name]: value
-                }
+                    [name]: value,
+                },
             }));
-        }
-    }
+        };
+    };
 
     private showChangeUserModal(id: number): void {
         this.setState({
-            idOfChangedUser: id
-        })
+            idOfChangedUser: id,
+        });
 
         this.setState ({
-            changeUserModal: true
-        })
+            changeUserModal: true,
+        });
     }
 
     private closeChangeUserModal(): void {
         this.setState ({
-            changeUserModal: false
-        })
+            changeUserModal: false,
+        });
     }
 
     private regist(): void {
-        let user = this.state.user
+        let user = this.state.user;
 
         if (user.userPass === null) {
-            notify("You password is wrong")
-        }
+            notify("You password is wrong");
+        };
         
         if (user.userEmail === null ||
             !this.state.emailValid.test(user.userEmail)) {
-            notify("You email is wrong")
-        }   
+            notify("You email is wrong");
+        };
         
         if (user.userName === null) {
-            notify("You user name is wrong")
-        }
+            notify("You user name is wrong");
+        };
 
         if (user.userPass !== this.state.repeatPass) {
-            notify("your passwords do not match")
-        }
+            notify("your passwords do not match");
+        };
 
         if (user.userPass === this.state.repeatPass) {
             let users = this.state.users
@@ -126,87 +126,87 @@ export default class Users extends React.Component<any,any> {
             users.push(this.state.user)
             this.setState({
                 users: users,
-                showRegistUserModal: false
-            })
+                showRegistUserModal: false,
+            });
         }
         else {
-            alert("nope")
-        }
+            notify("Something is wrong");
+        };
     }
 
     private changeUser(): void {
         if (this.state.user.userPass === this.state.repeatPass) {
-            let user = this.state.user
+            let user = this.state.user;
             let users = this.state.users;
-            user.iduser = this.state.idOfChangedUser
-            usersService.changeUserData(user)
+            user.idUser = this.state.idOfChangedUser;
+            usersService.changeUserData(user);
             for (let i = 0; i < users.length; i++) {
-                if (user.iduser === users[i].iduser) {
+                if (user.idUser === users[i].idUser) {
                     users[i] = user
                     this.setState({
                         users: users,
-                        changeUserModal: false
-                    })
-                }
-            }
+                        changeUserModal: false,
+                    });
+                };
+            };
         }
         else {
-            alert("nope")
-        }
+            notify("Something is wrong");
+        };
     }
 
     private showUserInfo(user: IUser): void {
-        if (this.state.userInfo === user.iduser) {
+        if (this.state.userInfo === user.idUser) {
             this.setState ({
-                userInfo: 0
-            })
+                userInfo: 0,
+            });
             return;
         }
 
         this.setState ({
-            userInfo: user.iduser
-        })
+            userInfo: user.idUser,
+        });
     }
 
     private deleteUser(user: IUser): void {
-        let users = this.state.users
-        usersService.deleteUser(user)
+        let users = this.state.users;
+        usersService.deleteUser(user);
 
         for (let i = 0; i < users.length; i++) {
-            if (user.iduser === users[i].iduser) {
-                users.splice(i, 1)
-            }
-        }
+            if (user.idUser === users[i].idUser) {
+                users.splice(i, 1);
+            };
+        };
 
         this.setState({
-            users: users
-        })
-    }
+            users: users,
+        });
+    };
 
     private showRegistUserModal(): void {
         this.setState({
-            showRegistUserModal: true
-        })
+            showRegistUserModal: true,
+        });
     }
 
     private closeRegistUserModal(): void {
         this.setState({
-            showRegistUserModal: false
-        })
-    }
+            showRegistUserModal: false,
+        });
+    };
 
-    private async handlePageChange(pageNumber: number) {
+    private async handlePageChange(pageNumber: number): Promise<void> {
         await this.setState({activePage: pageNumber});
         usersService.getUsersForPage(this.state.activePage, this.state.totalItemPerPage).then((res) => {
           this.setState({
-            users: res
-          })
-        })
-      }
+            users: res,
+          });
+        });
+      };
 
     public render() {
 
-        let users = this.state.users
+        let users = this.state.users;
 
         return(
             <section className="editUser">
@@ -217,13 +217,13 @@ export default class Users extends React.Component<any,any> {
                     {
                     users.map((user: any) => {
                         return(
-                            <div key={user.iduser}>
+                            <div key={user.idUser}>
                                 <div className="user">
                                     <h4 className="user__name">{user.userName}</h4>
                                     <span className="user__delete" 
                                     onClick={() => this.deleteUser(user)}>Удалить</span>
                                     {
-                                    this.state.userInfo === user.iduser?
+                                    this.state.userInfo === user.idUser?
                                         <span className="user__Show"
                                         onClick={() => this.showUserInfo(user)}>Скрыть</span> 
                                         :
@@ -232,14 +232,14 @@ export default class Users extends React.Component<any,any> {
                                     }
                                 </div>
                                 {
-                                    this.state.userInfo ===  user.iduser?
+                                    this.state.userInfo ===  user.idUser?
                                     <div className="userInfo">
                                         <h4 className="userInfo__name">Имя пользователя: {user.userName}</h4>
                                         <p className="userInfo__email">Почта польователя: {user.userEmail}</p>
                                         <p className="userInfo__genre">Пол пользователя: {user.userGender}</p>
                                         <p className="userInfo__role">Роль пользователя: {user.userRole}</p>
                                         <span className="changeuUser"
-                                        onClick={() => this.showChangeUserModal(user.iduser)}>Изменить</span>
+                                        onClick={() => this.showChangeUserModal(user.idUser)}>Изменить</span>
                                     </div> : null
                                 }
                             </div>

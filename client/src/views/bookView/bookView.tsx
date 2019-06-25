@@ -10,39 +10,39 @@ import { IBook } from "../../shared/interfaces";
 
 interface data {
     dataBook: any,
-    dataAuthor: any
-}
+    dataAuthor: any,
+};
 
 const bookService = new BookService();
-const bagService = new BagService()
+const bagService = new BagService();
 
 export default class Book extends React.Component<any, data> {
     constructor(
-        props: any
+        props: any,
         ) {
-        super(props)
+        super(props);
         this.state = {
             dataBook: [],
-            dataAuthor: []
-        }
-    }
+            dataAuthor: [],
+        };
+    };
 
     
 
-    componentDidMount(): void {
+    componentDidMount() {
         bookService.getBookWidthAuthors(this.props.match.params.id).then((res) => {
             this.setState({
-                dataBook: res
-            })
-        })
-    }
+                dataBook: res,
+            });
+        });
+    };
 
     private addBookToBag(book: IBook): void {
-        bagService.addToBag(book)
-    }
+        bagService.addToBag(book);
+    };
 
     public render() {
-        const book = this.state.dataBook
+        const book = this.state.dataBook;
         return(
             <section className="bookView">
                 <h2 className="bookView__title">{ book.title }</h2>

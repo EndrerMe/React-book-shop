@@ -15,8 +15,6 @@ const authorService = new AuthorService();
 
 
 export default class Books extends React.Component<any,any> {
-
-
     constructor (props: any) {
         super(props)
 
@@ -32,7 +30,7 @@ export default class Books extends React.Component<any,any> {
             authorsForBook: [],
 
             newAuthor: {
-                authorName: ""
+                authorName: "",
             },
 
             clearForm: {
@@ -58,9 +56,9 @@ export default class Books extends React.Component<any,any> {
             totalItem: 0,
         }
 
-        this.addAuthorToState = this.addAuthorToState.bind(this)
-        this.addBookToState = this.addBookToState.bind(this)
-        this.addToMultiselectValue = this.addToMultiselectValue.bind(this)
+        this.addAuthorToState = this.addAuthorToState.bind(this);
+        this.addBookToState = this.addBookToState.bind(this);
+        this.addToMultiselectValue = this.addToMultiselectValue.bind(this);
     }
 
     componentDidMount() {
@@ -68,37 +66,34 @@ export default class Books extends React.Component<any,any> {
         bookService.getAllBooks().then((res) => {
             this.setState({
               totalItem: res,
-            })
-          })
+            });
+          });
         
 
         bookService.getBookForPage(this.state.activePage, this.state.totalItemPerPage)
         .then((res) => {
             this.setState({
-                books: res
-            })
-        })
+                books: res,
+            });
+        });
 
         authorService.getAllAuthors().then((res) => {
             this.setState ({
-                authors: res
-            })
-        })
-    }
+                authors: res,
+            });
+        });
+    };
 
-    private async addToMultiselectValue(option: any) {
-
-        console.log(option)
-
+    private async addToMultiselectValue(option: any): Promise<void> {
         await this.setState((prevState: any) => ({
             newBook: {
                 ...prevState.newBook,
-                authors: option
-            }
+                authors: option,
+            },
         }));   
-    }
+    };
 
-    private async addBookToState(event: any) {
+    private async addBookToState(event: any): Promise<void> {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
@@ -106,10 +101,10 @@ export default class Books extends React.Component<any,any> {
         await this.setState((prevState: any) => ({
             newBook: {
                 ...prevState.newBook,
-                [name]: value
-            }
+                [name]: value,
+            },
         }));
-    }
+    };
 
     private addAuthorToState(event: any): void {
         const target = event.target;
@@ -118,134 +113,128 @@ export default class Books extends React.Component<any,any> {
     
         this.setState({
             newAuthor: {
-                [name]: value
-            }
+                [name]: value,
+            },
         });
-      }
+      };
 
     private showBookInfo(book: IBook): void {
-
         if (this.state.bookInfo === book.idbooks) {
             this.setState ({
-                bookInfo: null
+                bookInfo: null,
             })
-            return
-        }
-
+            return;
+        };
         this.setState ({
-            bookInfo: book.idbooks
-        })
-
+            bookInfo: book.idbooks,
+        });
         bookService.getAuthorForBooks(book.idbooks).then((res: any) => {
             let authors = res
             this.setState ({
-                authorsForBook: authors
-            })
-        })
-    }
+                authorsForBook: authors,
+            });
+        });
+    };
 
     private showNewBookModal(): void {
         this.setState ({
-            newBookModal: true
-        })
-    }
+            newBookModal: true,
+        });
+    };
 
     private closeNewBookModal(): void {
         this.setState ({
-            newBookModal: false
-        })
-    }
+            newBookModal: false,
+        });
+    };
 
     private showChangeBookModal(id: number): void {
         this.setState ({
             changeBookModal: true,
-            idOfChangedBook: id
-        })
-    }
+            idOfChangedBook: id,
+        });
+    };
 
     private closeChangeBookModal(): void {
         this.setState ({
-            changeBookModal: false
-        })
-    }
+            changeBookModal: false,
+        });
+    };
 
     private addNewBook(): void {
-        let books = this.state.books
-        let newBook = this.state.newBook
+        let books = this.state.books;
+        let newBook = this.state.newBook;
 
         bookService.addNewBook(newBook).then((res) => {
-            books.push(newBook)
+            books.push(newBook);
 
             this.setState({
                 books: books,
                 newBookModal: false,
-                newBook: this.state.clearForm
-            })
-        })
-    }
+                newBook: this.state.clearForm,
+            });
+        });
+    };
 
     private changeBook(): void {
-        let bookId = this.state.idOfChangedBook
-        let books = this.state.books
-        let changedBook = this.state.newBook
-        console.log(books)
-        changedBook.bookid = bookId
+        let bookId = this.state.idOfChangedBook;
+        let books = this.state.books;
+        let changedBook = this.state.newBook;
+        changedBook.bookid = bookId;
 
         for (let i = 0; i < changedBook.Author; i++) {
             delete changedBook.Author[i].value;
             delete changedBook.Author[i].label;
-        }
+        };
 
-        bookService.changeBook(changedBook)
+        bookService.changeBook(changedBook);
 
         for (let i = 0; i < books.length; i++) {
-            console.log(i)
             if (bookId === books[i].idbooks) {
-                console.log("yes")
-                books[i] = changedBook
+                books[i] = changedBook;
                 this.setState({
                     books: books,
-                    changeBookModal: false
-                })
-            }
-        }
-    }
+                    changeBookModal: false,
+                });
+            };
+        };
+    };
 
     private deleteBook(id: number): void {
-        let books = this.state.books
-        bookService.deleteBook(id)
+        let books = this.state.books;
+        bookService.deleteBook(id);
 
         for (let i = 0; i < books.length; i++) {
             if (id === books[i].idbooks) {
                 books.splice(i, 1)
                 this.setState({
-                    books: books
-                })
-            }
-        }
-    }
+                    books: books,
+                });
+            };
+        };
+    };
 
-    private async handlePageChange(pageNumber: any) {
+    private async handlePageChange(pageNumber: any): Promise<void> {
         await this.setState({activePage: pageNumber});
         bookService.getBookForPage(this.state.activePage, this.state.totalItemPerPage).then((res) => {
           this.setState({
-            books: res
-          })
-        })
-      }
+            books: res,
+          });
+        });
+      };
 
     public render() {
 
-        let books = this.state.books
+        let books = this.state.books;
 
         let authors = this.state.authors;
-        let authorsForBook = this.state.authorsForBook
+        let authorsForBook = this.state.authorsForBook;
         let newBook = this.state.newBook;
 
         for (let i = 0; i < authors.length; i++) {
-            authors[i].label = authors[i].authorName
-            authors[i].value = authors[i].idauthors
-        }
+            authors[i].label = authors[i].authorName;
+            authors[i].value = authors[i].idauthors;
+        };
 
         return (
           <section className="editBooks">

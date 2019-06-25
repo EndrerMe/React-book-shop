@@ -7,4 +7,3 @@ export const booksProviders = [
       useValue: Books,
     },
   ];
-  

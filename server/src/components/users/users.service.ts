@@ -19,13 +19,13 @@ export class UsersService {
 
     public async findUserById(userId: number): Promise<Users> {
         return this.USERS_REPOSITORY.findOne({
-            where: {iduser: userId},
+            where: {idUser: userId},
         });
     }
 
     public async changeUser(user: Users): Promise<Users> {
         let isUser: Users;
-        await this.findUserById(user.iduser).then((res) => {
+        await this.findUserById(user.idUser).then((res) => {
             isUser = res;
         });
 
@@ -40,7 +40,7 @@ export class UsersService {
                     userRole: user.userRole,
                     userEmail: user.userEmail,
                 }, {
-                    where: {iduser: user.iduser},
+                    where: {idUser: user.idUser},
                 });
             });
         }
@@ -55,14 +55,14 @@ export class UsersService {
 
     public async deleteUser(user: Users): Promise<Users> {
         let isUser: Users;
-        await this.findUserById(user.iduser).then((res) => {
+        await this.findUserById(user.idUser).then((res) => {
             isUser = res;
         });
 
         if (isUser) {
             await Users.destroy({
                 where: {
-                    iduser: user.iduser,
+                    idUser: user.idUser,
                 },
             });
         }

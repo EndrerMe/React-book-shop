@@ -1,5 +1,6 @@
 // Vendors
 import axios from 'axios';
+import { environment } from '../enviroments/enviroments';
 
 export function booksFetchDataSuccess(books: any) {
     return {
@@ -10,7 +11,7 @@ export function booksFetchDataSuccess(books: any) {
 
 export function booksFetchData(url: any) {
     return (dispatch: any) => {
-        axios.get("http://localhost:3002/booksAuthors/getAllbooksAuthors")
+        axios.get(`${environment.mySql.databaseURL}/booksAuthors/getAllbooksAuthors`)
         .then((res: any) => {
             dispatch(booksFetchData(res.data))
         })

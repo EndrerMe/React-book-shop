@@ -7,7 +7,7 @@ import { Books } from '../../components/books/books.entity';
 import { Authors } from '../../components/authors/authors.entity';
 // Models
 import { BookAuthorModel } from '../../components/booksAuthors/model/booksAuthors.model';
-import { AuthorModel } from '../../components/booksAuthors/model/Author.model';
+import { AuthorModel } from '../../components/booksAuthors/model/author.model';
 // Services
 import { AuthorsService } from '../../components/authors/authors.service';
 
@@ -49,7 +49,7 @@ export class BooksAuthorsService {
         return books;
     }
 
-    public async createNewRow(authors: AuthorModel[], book) {
+    public async createNewRow(authors: AuthorModel[], book: Promise<any>): Promise<BookAuthorModel[]>  {
         const bookIdWithAuthorId: BookAuthorModel[] = [] as BookAuthorModel[];
         let bookId: number;
         await book.then((res) => {
@@ -66,6 +66,8 @@ export class BooksAuthorsService {
         for (let i = 0; i < bookIdWithAuthorId.length; i++) {
             BooksAuthors.create(bookIdWithAuthorId[i]);
         }
+
+        return
     }
 
     public async getAuthorForBooks(id: number): Promise<BooksAuthors[]> {

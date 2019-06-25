@@ -12,17 +12,17 @@ import { authorsProviders } from './authors.provier';
 
 @Module({
   imports: [
-    DatabaseModule
+    DatabaseModule,
   ],
   controllers: [
-    AuthorsController
+    AuthorsController,
   ],
   providers: [
     AuthorsService,
-    ...authorsProviders
+    ...authorsProviders,
   ],
   exports: [
-    AuthorsService
-  ]
+    AuthorsService,
+  ],
 })
 export class AuthorsModule {}

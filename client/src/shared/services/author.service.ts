@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 
 // Interfaces
-import { IAuthor } from '../interfaces/author.interface';
+import { IAuthor } from '../interfaces';
 // Enviroments
 import { environment } from '../../enviroments/enviroments';
 
@@ -15,65 +15,63 @@ export class AuthorService {
         return new Promise((response, rej) => {
             fetch(`${environment.mySql.databaseURL}/booksAuthors/getBookById/` + id)
             .then( res => res.json() )
-            .then( (data: any) => { response(data)})
+            .then( (data: any) => { response(data)});
         },
-    )}
+    )};
 
     public getAllAuthors(): Promise<IAuthor[]> {
         return new Promise((res, rej) => {
             fetch(`${environment.mySql.databaseURL}/authors/getAllAuthors/`)
             .then( res => res.json() )
-            .then( (data: any) => { res(data)})
+            .then( (data: any) => { res(data)});
         },
-    )}
+    )};
 
     public getAllAuthorsLength(): Promise<IAuthor[]> {
         return new Promise((res, rej) => {
             fetch(`${environment.mySql.databaseURL}/authors/getAllAuthors/`)
             .then( res => res.json() )
-            .then( (data: any) => { res(data.length)})
+            .then( (data: any) => { res(data.length)});
         },
-    )}
+    )};
 
     public addNewAuthor(author: IAuthor): Promise<IAuthor> {
         return new Promise((response, rej) => {
             axios.post(`${environment.mySql.databaseURL}/authors/addNewAuthor`, author )
-                .then(res => response(res.data))      
-        })      
-    }
+                .then(res => response(res.data));
+        });      
+    };
 
     public deleteAuthor(author: IAuthor): void {
         axios.post(`${environment.mySql.databaseURL}/authors/deleteAuthor`, author )
             .then(res => {
-                console.log(res.data);
             }
         ).catch((err) => {
             if (err.response) {
                 if (err.response.status === 404) {
-                    notify(err.response.data.error)
-                }
-            }
-        })
-    }
+                    notify(err.response.data.error);
+                };
+            };
+        });
+    };
 
     public changeAuthor(author: IAuthor): void {
         axios.post(`${environment.mySql.databaseURL}/authors/changeAuthor`, author )
             .then(res => {
-                console.log(res.data);
             }
         ).catch((err) => {
             if (err.response) {
                 if (err.response.status === 404) {
-                    notify(err.response.data.error)
-                }
-            }
-        }) 
-    }
+                    notify(err.response.data.error);
+                };
+            };
+        });
+    };
 
     public getAuthorsForPage(page: number, pageSize: number): Promise<IAuthor[]> {
         return new Promise((result, rej) => {
             axios.post(`${environment.mySql.databaseURL}/authors/getAuthorsForPage`, {page, pageSize})
-            .then((data: any) => {result(data.data)})
-        })
-    }
+            .then((data: any) => {result(data.data)});
+        });
+    };
 }

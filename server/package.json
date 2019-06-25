@@ -2,7 +2,7 @@
   "name": "server",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Ilia Verzun",
   "license": "MIT",
   "scripts": {
     "build": "tsc -p tsconfig.build.json",

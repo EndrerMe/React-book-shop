@@ -11,14 +11,14 @@ const auth = new AuthService();
 export default class Login extends React.Component<any, any> {
 
     constructor(props: any) {
-        super(props)
+        super(props);
 
         this.state = {
             user: {
                 userName: "",
                 userPass: "",
-            }
-        }
+            },
+        };
 
         this.handleInputChange = this.handleInputChange.bind(this);
     }
@@ -31,14 +31,14 @@ export default class Login extends React.Component<any, any> {
         this.setState((prevState: any) => ({
             user: {
                 ...prevState.user,
-                [name]: value
-            }
+                [name]: value,
+            },
         }));
-    }
+    };
 
     private login(): void {
-        auth.login(this.state.user)
-    }
+        auth.login(this.state.user);
+    };
 
     public render() {
         return(

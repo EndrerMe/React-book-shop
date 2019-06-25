@@ -13,50 +13,48 @@ export default class ShoppingBag extends React.Component<{}, IShoppingBag> {
     constructor(
         props: any
         ) {
-        super(props)
+        super(props);
         this.state = {
             showText: false,
-            bag: [] as any
-        }
-    }
+            bag: [] as any,
+        };
+    };
 
     componentDidMount() {
         this.setState({
-            bag: JSON.parse(localStorage.getItem("bag") as any)
-        })
+            bag: JSON.parse(localStorage.getItem("bag") as any),
+        });
 
         if(JSON.parse(localStorage.getItem("bag") as any)) {
             this.setState({
-                showText: false
-            })
-        }
+                showText: false,
+            });
+        };
 
         if(!JSON.parse(localStorage.getItem("bag") as any)) {
             this.setState({
-                showText: true
-            })
-        }
+                showText: true,
+            });
+        };
 
         
-    }
+    };
 
     private clearBag() {
-        localStorage.removeItem("bag")
+        localStorage.removeItem("bag");
         this.setState({
             showText: true,
-            bag: []
-        })
-    }
+            bag: [],
+        });
+    };
 
-    handleChange(event: any) {
+    handleChange(event: any): void {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-    
-      }
+    };
 
     public render() {
-        console.log(this.state.bag)
         return(
             <section className="bag">
             <h2 className="bag__title">Корзина</h2>

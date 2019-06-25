@@ -1,5 +1,10 @@
+// Vendors
 import { Route, Redirect } from "react-router";
 import React, { Component }  from 'react';
+import { toast } from 'react-toastify';
+
+toast.configure()
+const notify = (text: string) => toast(text);
 
 export const PrivateRoute = ({ component: Component, ...rest }: any) => (
     <Route {...rest} render={(props) => {
@@ -10,7 +15,7 @@ export const PrivateRoute = ({ component: Component, ...rest }: any) => (
                 return <Component {...props} />
             } else {
                 return (
-                    alert("You are not admin")
+                    notify("You are not admin")
                 )
             }
 
