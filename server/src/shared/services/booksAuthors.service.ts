@@ -10,6 +10,7 @@ import { BookAuthorModel } from '../../components/booksAuthors/model/booksAuthor
 import { AuthorModel } from '../../components/booksAuthors/model/author.model';
 // Services
 import { AuthorsService } from '../../components/authors/authors.service';
+import { NewRowBookAuthorsDTO } from '../dto/newRowBookAuthors.dto';
 
 @Injectable()
 export class BooksAuthorsService {
@@ -49,7 +50,7 @@ export class BooksAuthorsService {
         return books;
     }
 
-    public async createNewRow(authors: AuthorModel[], book: Promise<any>): Promise<BookAuthorModel[]>  {
+    public async createNewRow(authors: AuthorModel[], book: Promise<NewRowBookAuthorsDTO>): Promise<BookAuthorModel[]>  {
         const bookIdWithAuthorId: BookAuthorModel[] = [] as BookAuthorModel[];
         let bookId: number;
         await book.then((res) => {
