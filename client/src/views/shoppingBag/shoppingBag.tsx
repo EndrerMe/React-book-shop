@@ -40,7 +40,7 @@ export default class ShoppingBag extends React.Component<{}, IShoppingBag> {
         
     };
 
-    private clearBag() {
+    private clearBag(): void {
         localStorage.removeItem("bag");
         this.setState({
             showText: true,
