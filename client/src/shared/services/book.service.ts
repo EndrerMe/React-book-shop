@@ -3,8 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 //Interfaces
-import { IBook } from '../interfaces';
-import { IAuthor } from '../interfaces';
+import { IBook, IAuthor } from '../interfaces';
 // Enviroments
 import { environment } from '../../enviroments/enviroments';
 
