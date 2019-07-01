@@ -6,7 +6,6 @@ nav {
         position: fixed;
         width: 40px;
         height: 40px;
-        background-color: #363636;
         left: 87%; 
         margin-top: 20px;
         z-index: 9999;
@@ -19,7 +18,7 @@ nav {
             position: absolute;
             width: 25px;
             height: 3px;
-            background-color: #ffffff;
+            background-color: #fcf5d5;
         }
 
         .nav__line::after,
@@ -63,7 +62,7 @@ nav {
             margin-top: 75px;
 
             .bag__link {
-                color: #ffffff;
+                color: #fff;
             }
         }
 
@@ -76,7 +75,7 @@ nav {
                 .ABList__el {
                     margin-top: 25px;    
                     a {
-                        color: rgb(0, 255, 21);
+                        color: #49c3f6;
                     }
                 }
             }

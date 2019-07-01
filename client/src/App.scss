@@ -25,7 +25,7 @@
             position: absolute;
             bottom: 7%;
             padding: 6px 25px 5px 25px;
-            background-color: #E5E095;
+            background-color: #49c3f6;
             outline: none;
             border: none;
             color: #000;
@@ -34,7 +34,7 @@
         }
 
         button:hover {
-            background-color: #C9C37C;;
+            background-color: #66d1ff;;
         }
 
         .showBook {
@@ -105,5 +105,9 @@
 
     .clearFilter {
         margin: 55px 0 0 50px;
+    }
+
+    .btnSearch {
+        margin: -3px 0 0 5px;
     }
 }

@@ -171,11 +171,11 @@ class App extends React.Component<any, any> {
           <Redirect to="/all-books"/>
         )}/>
         <div className="mainLayout">       
-          <Header></Header>
           <Route path="/all-books" render = { () => 
             {
               return(
                 <div className="catalog">
+                  <Header></Header>
                     <div className="filter">
                       <div className="filter__search">
                         <div className="filter__main">
@@ -185,6 +185,7 @@ class App extends React.Component<any, any> {
                             placeholder="Название" 
                             onChange={this.onChangeInput}/>
                             <button
+                            className="btn-primary btn btnSearch"
                             onClick={() => this.searchByBookTitle()}>Поиск</button>
                         </div>
                         <div className="filter__main">
@@ -194,6 +195,7 @@ class App extends React.Component<any, any> {
                           placeholder="Автор" 
                           onChange={this.onChangeInput}/>
                           <button
+                          className="btn-primary btn btnSearch"
                           onClick={() => this.seacrhByAuthor()}>Поиск</button>
                         </div>
                         <div className="filter__main">
@@ -203,6 +205,7 @@ class App extends React.Component<any, any> {
                           placeholder="Тип" 
                           onChange={this.onChangeInput}/>
                           <button
+                          className="btn-primary btn btnSearch"
                           onClick={() => this.searchByType()}>Поиск</button>
                         </div>
                       </div>
@@ -217,12 +220,13 @@ class App extends React.Component<any, any> {
                         value={this.state.searchByPrice.max || ""}
                         placeholder="Максимальная" 
                         onChange={this.onChangeInput}/>
-                        <input className="btn btn-primary" type="button" value="Поиск" 
+                        <input className="btn btn-primary btnSearchPrice" type="button" value="Поиск" 
                         onClick={() => this.searchByPrice()}/>
                       </form>
 
                       <div className="clearFilter">
                         <button 
+                        className="btn-danger btn"
                         onClick={() => this.componentDidMount()}>Сброс фильтров</button>
                       </div>
 
@@ -254,16 +258,7 @@ class App extends React.Component<any, any> {
                 </div>
               );
             }
-          } />
-          <Route path="/Login" render={ () => 
-            {
-              return(
-                <div className="login">
-                  <Login></Login>
-                </div>
-              );
-            } 
-          } />       
+          } />     
         </div>
         <div className="auth">
           <Route path="/Registration" render={ () => {
@@ -274,6 +269,15 @@ class App extends React.Component<any, any> {
             );
           } }>
           </Route>
+          <Route path="/Login" render={ () => 
+            {
+              return(
+                <div className="login">
+                  <Login></Login>
+                </div>
+              );
+            } 
+          } />  
         </div>
         <div className="bag">
           {/* <PrivateRoute path="/Shopping-bag" component={ShoppingBag} /> */}
@@ -285,6 +289,7 @@ class App extends React.Component<any, any> {
           </Route>
         </div>
         <div className="adminBuns">
+          <Header></Header>
           <PrivateRoute path="/adminBuns/Authors" component={Authors} />
           <PrivateRoute path="/adminBuns/Books" component={Books} />
           <PrivateRoute path="/adminBuns/Users" component={Users} />
