@@ -85,9 +85,14 @@ export default class ShoppingBag extends React.Component<{}, IShoppingBag> {
             </div> :
             null
             }
-            <div className="bag__clear">
-                <button onClick={() => this.clearBag()}>Очистить корзину</button>
-            </div>
+            {
+                this.state.showText ?
+                null
+                : 
+                <div className="bag__clear">
+                    <button onClick={() => this.clearBag()}>Очистить корзину</button>
+                </div>
+            }
         </section>
         );
     }
