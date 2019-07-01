@@ -47,7 +47,9 @@ class App extends React.Component<any, any> {
       searchByPrice: {
         min: null,
         max: null,
-      }
+      },
+
+      isShowFilter: false,
     };
 
     this.onChangeInput = this.onChangeInput.bind(this);
@@ -163,6 +165,12 @@ class App extends React.Component<any, any> {
     });
   };
 
+  private toogleFilter(): void {
+    this.setState({
+      isShowFilter: !this.state.isShowFilter
+    })
+  }
+
   public render() { 
     const { data } = this.state;
     return(
@@ -174,86 +182,134 @@ class App extends React.Component<any, any> {
           <Route path="/all-books" render = { () => 
             {
               return(
-                <div className="catalog">
+                <div className="mainPage">
                   <Header></Header>
-                    <div className="filter">
-                      <div className="filter__search">
-                        <div className="filter__main">
-                            <input type="text" 
-                            name="searchByBookTitle"
-                            value={this.state.searchByBookTitle || ""}
-                            placeholder="Название" 
-                            onChange={this.onChangeInput}/>
-                            <button
-                            className="btn-primary btn btnSearch"
-                            onClick={() => this.searchByBookTitle()}>Поиск</button>
+                    <div className="accordion">
+                      <div className="card">
+                        <div className="card-header" id="headingOne">
+                          <h5 className="mb-0">
+                            <button className="btn btn-link" 
+                            data-toggle="collapse" 
+                            data-target="#collapseOne" 
+                            aria-expanded="true" 
+                            aria-controls="collapseOne"
+                            onClick={() => this.toogleFilter()}>
+                              {
+                                this.state.isShowFilter ?
+                                'Hide filters'
+                                : 'Show filters'
+                              }
+                            </button>
+                          </h5>
                         </div>
-                        <div className="filter__main">
-                          <input type="text" 
-                          name="searchByAuthorName"
-                          value={this.state.searchByAuthorName || ""}
-                          placeholder="Автор" 
-                          onChange={this.onChangeInput}/>
-                          <button
-                          className="btn-primary btn btnSearch"
-                          onClick={() => this.seacrhByAuthor()}>Поиск</button>
-                        </div>
-                        <div className="filter__main">
-                          <input type="text" 
-                          name="searchByType"
-                          value={this.state.searchByType || ""}
-                          placeholder="Тип" 
-                          onChange={this.onChangeInput}/>
-                          <button
-                          className="btn-primary btn btnSearch"
-                          onClick={() => this.searchByType()}>Поиск</button>
-                        </div>
-                      </div>
-                      <form className="filter__price">
-                        <input type="number" 
-                        name="min" 
-                        value={this.state.searchByPrice.min || ""}
-                        placeholder="Минимальная" 
-                        onChange={this.onChangeInput}/>
-                        <input type="number" 
-                        name="max" 
-                        value={this.state.searchByPrice.max || ""}
-                        placeholder="Максимальная" 
-                        onChange={this.onChangeInput}/>
-                        <input className="btn btn-primary btnSearchPrice" type="button" value="Поиск" 
-                        onClick={() => this.searchByPrice()}/>
-                      </form>
 
-                      <div className="clearFilter">
-                        <button 
-                        className="btn-danger btn"
-                        onClick={() => this.componentDidMount()}>Сброс фильтров</button>
-                      </div>
+                        {
+                          this.state.isShowFilter ?
+                          <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div className="card-body">
+                              
+                              <div className="filter">
+                                <div className="filter__search">
+                                  <div className="filter__main">
+                                    <div className="group">
+                                      <input type="text" 
+                                      name="searchByBookTitle"
+                                      value={this.state.searchByBookTitle || ""}
+                                      onChange={this.onChangeInput} required/>
+                                      <span className="bar"></span>
+                                      <label>Название</label>
+                                    </div>
+                                    <button
+                                    className="btn-primary btn btnSearch"
+                                    onClick={() => this.searchByBookTitle()}>Поиск</button>
+                                  </div>
+                                  <div className="filter__main">
+                                    <div className="group">
+                                      <input type="text" 
+                                      name="searchByAuthorName"
+                                      value={this.state.searchByAuthorName || ""}
+                                      onChange={this.onChangeInput} required/>
+                                      <span className="bar"></span>
+                                      <label>Автор</label>
+                                    </div>
+                                    <button
+                                    className="btn-primary btn btnSearch"
+                                    onClick={() => this.seacrhByAuthor()}>Поиск</button>
+                                  </div>
+                                  <div className="filter__main">
+                                    <div className="group">
+                                      <input type="text" 
+                                      name="searchByType"
+                                      value={this.state.searchByType || ""}
+                                      onChange={this.onChangeInput} required/>
+                                      <span className="bar"></span>
+                                      <label>Тип</label>
+                                    </div>
+                                    <button
+                                    className="btn-primary btn btnSearch"
+                                    onClick={() => this.searchByType()}>Поиск</button>
+                                  </div>
+                                </div>
+                                <form className="filter__price">
+                                  <div className="group">
+                                    <input type="number" 
+                                    name="min" 
+                                    value={this.state.searchByPrice.min || ""}
+                                    onChange={this.onChangeInput} required/>
+                                    <span className="bar"></span>
+                                    <label>Минимальная</label>
+                                  </div>
+                                  <div className="group">  
+                                    <input type="number" 
+                                    name="max" 
+                                    value={this.state.searchByPrice.max || ""}
+                                    onChange={this.onChangeInput} required/>
+                                    <span className="bar"></span>
+                                    <label>Максимальная</label>
+                                  </div>
+                                  
+                                  <button className="btn btn-primary btnSearchPrice" type="button"
+                                  onClick={() => this.searchByPrice()}> Поиск </button>
+                                </form>
 
+                                <div className="clearFilter">
+                                  <button 
+                                  className="btn-danger btn"
+                                  onClick={() => this.componentDidMount()}>Сброс фильтров</button>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div> 
+                          : null
+                        }
+                      </div>
                     </div>
-                  {data.map((book: any) => {
-                    return (
-                      <div className="book" key={book.idbooks}>
-                          <h3 className="book__title">{ book.title }</h3>
-                          <p className="book__info">{ book.type }</p>
-                          <p className="book__price">{ book.price + "$" }</p>
-                          <button className="book__buy" onClick={() => this.addToBag(book)}>Добавить в корзину</button>
-                          <Link className="showBook" to={`/book/` + book.idbooks}>
-                              <h3 className="showBook__title">Показать</h3>
-                          </Link>
-                      </div>
-                    );
-                  })}
-                  <div className="pagination">
-                    <Pagination
-                      activePage={this.state.activePage}
-                      itemsCountPerPage={this.state.totalItemPerPage}
-                      totalItemsCount={this.state.totalItem}
-                      pageRangeDisplayed={5}
-                      onChange={this.handlePageChange.bind(this)}
-                      itemClass="page-item"
-                      linkClass="page-link"
-                    />
+                  <div className="catalog">
+                    {data.map((book: any) => {
+                      return (
+                        <div className="book" key={book.idbooks}>
+                            <h3 className="book__title">{ book.title }</h3>
+                            <p className="book__info">{ book.type }</p>
+                            <p className="book__price">{ book.price + "$" }</p>
+                            <button className="btn btn-primary bookBuy" onClick={() => this.addToBag(book)}>Добавить в корзину</button>
+                            <Link className="showBook" to={`/book/` + book.idbooks}>
+                                <h3 className="showBook__title">Показать</h3>
+                            </Link>
+                        </div>
+                      );
+                    })}
+                    <div className="pagination">
+                      <Pagination
+                        activePage={this.state.activePage}
+                        itemsCountPerPage={this.state.totalItemPerPage}
+                        totalItemsCount={this.state.totalItem}
+                        pageRangeDisplayed={5}
+                        onChange={this.handlePageChange.bind(this)}
+                        itemClass="page-item"
+                        linkClass="page-link"
+                      />
+                    </div>
                   </div>
                 </div>
               );
