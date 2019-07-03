@@ -1,16 +1,18 @@
 // Vendors
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 
 // Services
-import { AuthService } from './auth.service';
+import { AuthService } from '../../core/services/';
 // Controllers
 import { AuthController } from './auth.controller';
 // Provides
-import { authProviders } from './auth.provider';
+import { authProviders } from '../../core/providers/';
 // Modules
-import { DatabaseModule } from './../../database/database.module';
-import { PassportModule } from '@nestjs/passport';
+import { DatabaseModule } from '../../database/database.module';
+// Repositories
+import { AuthRepository } from './../../core/repositories';
 
 @Module({
   imports: [
@@ -25,7 +27,8 @@ import { PassportModule } from '@nestjs/passport';
   ],
   providers: [
     AuthService,
-    ...authProviders,
+    AuthRepository,
+    authProviders,
   ],
   controllers: [
     AuthController,

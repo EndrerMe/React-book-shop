@@ -43,7 +43,7 @@ export class AuthService {
         )
         .catch((err) => {
             if (err.response) {
-                if (err.response.status === 404) {
+                if (err.response.status === 400) {
                     notify(err.response.data.error);
                 };
                 if (err.response.status === 403) {

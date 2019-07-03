@@ -1,4 +1,4 @@
-export class BookAuthorModel {
+export class AuthorsInBookModel {
     bookid: number;
     authorid: number;
 }

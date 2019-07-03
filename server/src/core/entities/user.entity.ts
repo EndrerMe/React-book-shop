@@ -1,11 +1,10 @@
 // Vendors
-import { Table, Model, Column, PrimaryKey } from 'sequelize-typescript';
+import { Table, Model, Column } from 'sequelize-typescript';
 
 @Table({
     timestamps: false,
 })
-export class Users extends Model<Users> {
-    @PrimaryKey
+export class UserEntity extends Model<UserEntity> {
     @Column
     idUser: number;
 

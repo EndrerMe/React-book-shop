@@ -1,53 +1,42 @@
 // Vendors
 import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { JwtService } from '@nestjs/jwt';
+import { JwtService } from "@nestjs/jwt";
 
 // Entitys
-import { Users } from './auth.entity';
+import { UserEntity } from '../entities/';
 // Strategy
-import { JwtPayload } from 'src/strategy/model/jwt.model';
+import { JwtPayload } from './../../strategy/model/jwt.model';
+// Repositories
+import { AuthRepository } from '../repositories/auth.repository';
 
 @Injectable()
 export class AuthService {
     constructor(
-        @Inject('AUTH_REPOSITORY')
-        private readonly AUTH_REPOSITORY: typeof Users,
+        private authRepository: AuthRepository,
         private readonly jwtService: JwtService,
+
     ) {}
 
     public async findUserByName_boolean(userName: string): Promise<number> {
-        const user = await this.AUTH_REPOSITORY.count({
-            where: {
-                userName: userName,
-            },
-        });
-        return user;
+        return this.authRepository.findUserByName_boolean(userName);
     }
 
-    public async findUserByName_object(userName: string): Promise<Users> {
-        const user = await this.AUTH_REPOSITORY.findOne<Users>({
-            where: {
-                userName: userName,
-            },
-        });
+    public async findUserByName_object(userName: string): Promise<UserEntity> {
+        const user = await this.authRepository.findUserByName_object(userName)
 
         if (!user) {
             throw new HttpException({
-                status: HttpStatus.NOT_FOUND,
+                status: HttpStatus.BAD_REQUEST,
                 error: 'User not found',
-            }, 404);
+            }, 400);
         }
 
         return user;
     }
 
     public async findUserByEmail(userEmail: string): Promise<boolean> {
-        const user = await this.AUTH_REPOSITORY.findOne<Users>({
-            where: {
-                userEmail: userEmail,
-            },
-        });
+        const user = this.authRepository.findUserByEmail(userEmail);
 
         if (user) {
             throw new HttpException({
@@ -59,7 +48,7 @@ export class AuthService {
         return false;
     }
 
-    public async create(user: Users): Promise<Users> {
+    public async create(user: UserEntity): Promise<UserEntity> {
         const saltRounds = 10;
         let isUserEmail: boolean = true;
         let isUser: number;
@@ -81,23 +70,13 @@ export class AuthService {
         }
 
         if (!isUser && !isUserEmail) {
-            const newUser = bcrypt.hash(user.userPass, saltRounds, async (err, hash) => {
-                user.userPass = hash;
-                Users.build(user).update({
-                    userName: user.userName,
-                    userPass: user.userPass,
-                    userGender: user.userGender,
-                    userRole: user.userRole,
-                    userEmail: user.userEmail,
-                });
-            });
-            return newUser;
+            return this.authRepository.create(user, saltRounds)
         }
     }
 
-    public async login(user: Users): Promise<string> {
-        let isUser: Users;
-        await this.findUserByName_object(user.userName)
+    public async login(user: UserEntity): Promise<string> {
+        let isUser: UserEntity;
+        await this.authRepository.findUserByName_object(user.userName)
         .then((res) => {
             isUser = res;
         });

@@ -2,12 +2,11 @@
 import { Controller, Get, Param, Post, Body } from '@nestjs/common';
 
 // Services
-import { BooksService } from './books.service';
-// Entitys
-import { Books } from './books.entity';
+import { BooksService } from '../../core/services/';
+// Entities
+import { BookEntity } from '../../core/entities/';
 // Models
-import { BookModel } from './model/book.model';
-import { PaginationModel } from './../../shared/models/pagination.model';
+import { BookModel, PaginationModel } from '../../core/models/';
 
 @Controller('books')
 export class BooksController {
@@ -15,48 +14,48 @@ export class BooksController {
         private booksService: BooksService,
     ) {}
 
-    @Get('getAllBooks')
-    public async getAllBooks(): Promise<Books[]> {
-        return await this.booksService.findAllBooks();
+    @Get('getAll')
+    public async getAll(): Promise<BookEntity[]> {
+        return await this.booksService.findAll();
     }
 
-    @Get('getBookById/:id')
-    public async findBookById(@Param('id') id: number): Promise<Books> {
-        return await this.booksService.findBookById(id);
+    @Get('getById/:id')
+    public async findById(@Param('id') id: number): Promise<BookEntity> {
+        return await this.booksService.findById(id);
     }
 
-    @Post('addNewBook')
-    public async addNewBook(@Body() book: BookModel): Promise<Books> {
-        return await this.booksService.addNewBook(book);
+    @Post('addNew')
+    public async addNew(@Body() book: BookModel): Promise<BookEntity> {
+        return await this.booksService.addNew(book);
     }
 
-    @Post('chagneBook')
-    public async chagneBook(@Body() book: BookModel): Promise<Books> {
-        return await this.booksService.changeBook(book);
+    @Post('chagne')
+    public async chagne(@Body() book: BookModel): Promise<BookEntity> {
+        return await this.booksService.change(book);
     }
 
-    @Post('deleteBook')
-    public async deleteBook(@Body() bookid: {id: number}): Promise<Books> {
-        return await this.booksService.deleteBook(bookid.id);
+    @Post('delete')
+    public async delete(@Body() bookid: {id: number}): Promise<BookEntity> {
+        return await this.booksService.delete(bookid.id);
     }
 
-    @Post('getBookForPage')
-    public async getBookForPage(@Body() page: PaginationModel): Promise<Books[]> {
-        return await this.booksService.getBookForPage(page.page, page.pageSize);
+    @Post('getForPage')
+    public async getForPage(@Body() page: PaginationModel): Promise<BookEntity[]> {
+        return await this.booksService.getForPage(page.page, page.pageSize);
     }
 
     @Post('findByTitle')
-    public async findByTitle(@Body() title: {title: string}): Promise<Books[]> {
+    public async findByTitle(@Body() title: {title: string}): Promise<BookEntity[]> {
         return await this.booksService.findByTitle(title.title);
     }
 
     @Post('findByPrice')
-    public async findByPrice(@Body() price: {min: number, max: number}): Promise<Books[]> {
+    public async findByPrice(@Body() price: {min: number, max: number}): Promise<BookEntity[]> {
         return await this.booksService.findByPrice(price);
     }
 
     @Post('findByType')
-    public async findByType(@Body() type: {type: string}): Promise<Books[]> {
+    public async findByType(@Body() type: {type: string}): Promise<BookEntity[]> {
         return await this.booksService.findByType(type.type);
     }
 }

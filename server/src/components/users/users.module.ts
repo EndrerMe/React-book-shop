@@ -1,22 +1,19 @@
 // Vendors
 import { Module } from '@nestjs/common';
 
-// Services
-import { UsersService } from './users.service';
 // Controllers
 import { UsersController } from './users.controller';
 // Modules
 import { DatabaseModule } from './../../database/database.module';
 // Providers
-import { userProviders } from './users.provider';
+import { userProviders } from '../../core/providers/';
 
 @Module({
   imports: [
     DatabaseModule,
   ],
   providers: [
-    UsersService,
-    ...userProviders,
+    userProviders,
   ],
   controllers: [
     UsersController,

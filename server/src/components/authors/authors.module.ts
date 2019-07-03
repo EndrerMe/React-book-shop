@@ -3,12 +3,14 @@ import { Module } from '@nestjs/common';
 
 // Controllers
 import { AuthorsController } from './authors.controller';
-// Services
-import { AuthorsService } from './authors.service';
 // Modules
 import { DatabaseModule } from './../../database/database.module';
 // Providers
-import { authorsProviders } from './authors.provier';
+import { authorProviders } from '../../core/providers/';
+// Services
+import { AuthorsService } from '../../core/services';
+// Repositories
+import { AuthorRepoitory } from './../../core/repositories';
 
 @Module({
   imports: [
@@ -18,11 +20,9 @@ import { authorsProviders } from './authors.provier';
     AuthorsController,
   ],
   providers: [
+    authorProviders,
     AuthorsService,
-    ...authorsProviders,
-  ],
-  exports: [
-    AuthorsService,
+    AuthorRepoitory,
   ],
 })
 export class AuthorsModule {}

@@ -1,10 +1,10 @@
 // Vendors
 import { Controller, Post, Body } from '@nestjs/common';
 
-// Entitys
-import { Users } from './auth.entity';
+// Entities
+import { UserEntity } from '../../core/entities/';
 // Services
-import { AuthService } from './auth.service';
+import { AuthService } from '../../core/services/';
 
 @Controller('auth')
 export class AuthController {
@@ -13,12 +13,12 @@ export class AuthController {
     ) {}
 
     @Post('regist')
-    public async regist(@Body() user: Users): Promise<Users> {
+    public async regist(@Body() user: UserEntity): Promise<UserEntity> {
         return this.authService.create(user);
     }
 
     @Post('login')
-    public async login(@Body() user: Users): Promise<{token: string}> {
+    public async login(@Body() user: UserEntity): Promise<{token: string}> {
         const token = await this.authService.login(user);
         return {token};
     }
