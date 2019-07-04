@@ -1,7 +1,9 @@
 // Entitys
-import { AuthorsInBookEntity } from '../entities/';
+import { AuthorsAndBook } from '../entities/';
 
-export const booksAuthorsProviders =   {
-  provide: 'AuthorsInBookRepository',
-  useValue: AuthorsInBookEntity,
-}
+export const booksAuthorsProviders = [
+  {
+    provide: 'AuthorsInBookRepository',
+    useValue: AuthorsAndBook,
+  },
+];

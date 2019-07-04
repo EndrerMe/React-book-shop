@@ -1,16 +1,16 @@
 // Vendors
-import { Injectable, Inject } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
+import { Injectable, Inject } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
 // Entities
-import { UserEntity } from "../entities";
+import { User } from '../entities';
 
 @Injectable()
 export class AuthRepository {
     constructor(
         @Inject('AuthRepository')
-        private readonly authRepository: typeof UserEntity,
+        private readonly authRepository: typeof User,
         private readonly jwtService: JwtService,
     ) {}
 
@@ -23,8 +23,8 @@ export class AuthRepository {
         return await user;
     }
 
-    public async findUserByName_object(userName: string): Promise<UserEntity> {
-        const user = await this.authRepository.findOne<UserEntity>({
+    public async findUserByName_object(userName: string): Promise<User> {
+        const user = await this.authRepository.findOne<User>({
             where: {
                 userName: userName,
             },
@@ -33,8 +33,8 @@ export class AuthRepository {
         return await user;
     }
 
-    public async findUserByEmail(userEmail: string): Promise<UserEntity> {
-        const user = await this.authRepository.findOne<UserEntity>({
+    public async findUserByEmail(userEmail: string): Promise<User> {
+        const user = await this.authRepository.findOne<User>({
             where: {
                 userEmail: userEmail,
             },
@@ -43,10 +43,10 @@ export class AuthRepository {
         return await user;
     }
 
-    public async create(user: UserEntity, saltRounds: number): Promise<UserEntity> {
+    public async create(user: User, saltRounds: number): Promise<User> {
         const newUser = await bcrypt.hash(user.userPass, saltRounds, async (err, hash) => {
             user.userPass = hash;
-            UserEntity.build(user).update({
+            User.build(user).update({
                 userName: user.userName,
                 userPass: user.userPass,
                 userGender: user.userGender,

@@ -7,13 +7,19 @@ import { UsersController } from './users.controller';
 import { DatabaseModule } from './../../database/database.module';
 // Providers
 import { userProviders } from '../../core/providers/';
+// Services
+import { UsersService } from './../../core/services';
+// Repositories
+import { UserRepository } from './../../core/repositories';
 
 @Module({
   imports: [
     DatabaseModule,
   ],
   providers: [
-    userProviders,
+    UsersService,
+    UserRepository,
+    ...userProviders,
   ],
   controllers: [
     UsersController,

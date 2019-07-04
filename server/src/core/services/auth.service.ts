@@ -1,10 +1,10 @@
 // Vendors
 import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { JwtService } from "@nestjs/jwt";
+import { JwtService } from '@nestjs/jwt';
 
 // Entitys
-import { UserEntity } from '../entities/';
+import { User } from '../entities/';
 // Strategy
 import { JwtPayload } from './../../strategy/model/jwt.model';
 // Repositories
@@ -22,8 +22,8 @@ export class AuthService {
         return this.authRepository.findUserByName_boolean(userName);
     }
 
-    public async findUserByName_object(userName: string): Promise<UserEntity> {
-        const user = await this.authRepository.findUserByName_object(userName)
+    public async findUserByName_object(userName: string): Promise<User> {
+        const user = await this.authRepository.findUserByName_object(userName);
 
         if (!user) {
             throw new HttpException({
@@ -48,7 +48,7 @@ export class AuthService {
         return false;
     }
 
-    public async create(user: UserEntity): Promise<UserEntity> {
+    public async create(user: User): Promise<User> {
         const saltRounds = 10;
         let isUserEmail: boolean = true;
         let isUser: number;
@@ -70,12 +70,12 @@ export class AuthService {
         }
 
         if (!isUser && !isUserEmail) {
-            return this.authRepository.create(user, saltRounds)
+            return this.authRepository.create(user, saltRounds);
         }
     }
 
-    public async login(user: UserEntity): Promise<string> {
-        let isUser: UserEntity;
+    public async login(user: User): Promise<string> {
+        let isUser: User;
         await this.authRepository.findUserByName_object(user.userName)
         .then((res) => {
             isUser = res;

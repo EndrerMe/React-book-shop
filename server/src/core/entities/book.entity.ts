@@ -2,15 +2,15 @@
 import { Table, Model, Column, ForeignKey, PrimaryKey } from 'sequelize-typescript';
 
 // Entitys
-import { AuthorsInBookEntity } from './';
+import { AuthorsAndBook } from './';
 
 @Table({
     timestamps: false,
 })
-export class BookEntity extends Model<BookEntity> {
+export class Book extends Model<Book> {
     @PrimaryKey
     @Column
-    @ForeignKey(() => AuthorsInBookEntity)
+    @ForeignKey(() => AuthorsAndBook)
     idbooks: number;
 
     @Column

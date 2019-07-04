@@ -4,7 +4,7 @@ import { Controller, Get, Post, Body } from '@nestjs/common';
 // Services
 import { UsersService } from '../../core/services/';
 // Entities
-import { UserEntity } from '../../core/entities/';
+import { User } from '../../core/entities/';
 // Models
 import { PaginationModel } from '../../core/models/';
 
@@ -16,22 +16,22 @@ export class UsersController {
     ) {}
 
     @Get('getAll')
-    public async getAll(): Promise<UserEntity[]> {
+    public async getAll(): Promise<User[]> {
         return await this.usersService.getAll();
     }
 
     @Post('changeData')
-    public async changeData(@Body() user: UserEntity): Promise<UserEntity> {
+    public async changeData(@Body() user: User): Promise<User> {
         return await this.usersService.change(user);
     }
 
     @Post('delete')
-    public async delete(@Body() user: UserEntity): Promise<UserEntity> {
+    public async delete(@Body() user: User): Promise<User> {
         return await this.usersService.delete(user);
     }
 
     @Post('getForPage')
-    public async getForPage(@Body() page: PaginationModel): Promise<UserEntity[]> {
+    public async getForPage(@Body() page: PaginationModel): Promise<User[]> {
         return await this.usersService.getForPage(page.page, page.pageSize);
     }
 }

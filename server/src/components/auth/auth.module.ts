@@ -28,7 +28,7 @@ import { AuthRepository } from './../../core/repositories';
   providers: [
     AuthService,
     AuthRepository,
-    authProviders,
+    ...authProviders,
   ],
   controllers: [
     AuthController,

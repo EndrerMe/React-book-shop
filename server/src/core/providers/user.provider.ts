@@ -1,7 +1,9 @@
 // Entities
-import { UserEntity } from '../entities';
+import { User } from '../entities';
 
-export const userProviders =  {
-  provide: 'AserRepository',
-  useValue: UserEntity,
-}
+export const userProviders =  [
+  {
+    provide: 'UserRepository',
+    useValue: User,
+  },
+];

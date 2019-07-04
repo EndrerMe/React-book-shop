@@ -3,7 +3,7 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 
 // Entities
-import { UserEntity } from '../entities';
+import { User } from '../entities';
 // repositories
 import { UserRepository } from '../repositories/';
 
@@ -11,25 +11,25 @@ import { UserRepository } from '../repositories/';
 export class UsersService {
 
     constructor(
-        private userRepository: UserRepository
+        private userRepository: UserRepository,
     ) {}
 
-    public async getAll(): Promise<UserEntity[]> {
-        return await this.userRepository.getAll()
+    public async getAll(): Promise<User[]> {
+        return this.userRepository.getAll();
     }
 
-    public async findById(userId: number): Promise<UserEntity> {
-        return await this.userRepository.findById(userId)
+    public async findById(userId: number): Promise<User> {
+        return await this.userRepository.findById(userId);
     }
 
-    public async change(user: UserEntity): Promise<UserEntity> {
-        let isUser: UserEntity;
+    public async change(user: User): Promise<User> {
+        let isUser: User;
         this.userRepository.findById(user.idUser).then((res) => {
             isUser = res;
-        })
+        });
 
         if (isUser) {
-            return await this.userRepository.change(user)
+            return await this.userRepository.change(user);
         }
 
         if (!isUser) {
@@ -40,14 +40,14 @@ export class UsersService {
         }
     }
 
-    public async delete(user: UserEntity): Promise<UserEntity> {
-        let isUser: UserEntity;
+    public async delete(user: User): Promise<User> {
+        let isUser: User;
         await this.userRepository.findById(user.idUser).then((res) => {
             isUser = res;
-        })
+        });
 
         if (isUser) {
-            await this.userRepository.delete(user.idUser)
+            await this.userRepository.delete(user.idUser);
         }
         if (!isUser) {
             throw new HttpException({
@@ -58,11 +58,11 @@ export class UsersService {
         return;
     }
 
-    public async getForPage(page: number, pageSize: number): Promise<UserEntity[]> {
+    public async getForPage(page: number, pageSize: number): Promise<User[]> {
         const offset = (page - 1) * pageSize;
         const limit = pageSize;
 
-        return await this.userRepository.getForPage(limit, offset)
+        return this.userRepository.getForPage(limit, offset);
     }
 
 }

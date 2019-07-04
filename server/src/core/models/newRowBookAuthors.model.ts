@@ -1,3 +1,3 @@
 export class NewRowBookAuthorsModel {
-    null: number;
+    null?: number;
 }

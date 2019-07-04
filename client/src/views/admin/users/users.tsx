@@ -59,6 +59,7 @@ export default class Users extends React.Component<any,any> {
         });
 
         usersService.getUsersForPage(this.state.activePage, this.state.totalItemPerPage).then((res) => {
+            console.log("asdasd")
             this.setState({
               users: res,
             });

@@ -1,15 +1,16 @@
 // Vendors
-import { Table, Model, Column, ForeignKey } from 'sequelize-typescript';
+import { Table, Model, Column, ForeignKey, PrimaryKey } from 'sequelize-typescript';
 
 // Entitys
-import { AuthorsInBookEntity } from './';
+import { AuthorsAndBook } from './';
 
 @Table({
     timestamps: false,
 })
-export class AuthorEntity extends Model<AuthorEntity> {
+export class Author extends Model<Author> {
+    @PrimaryKey
     @Column
-    @ForeignKey(() => AuthorsInBookEntity)
+    @ForeignKey(() => AuthorsAndBook)
     idauthors: number;
 
     @Column

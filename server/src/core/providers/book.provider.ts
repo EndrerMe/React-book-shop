@@ -1,8 +1,9 @@
 // Entitys
-import { BookEntity } from '../entities/';
+import { Book } from '../entities/';
 
-export const bookProviders = {
-  provide: 'BookRepository',
-  useValue: BookEntity,
-}
-
+export const bookProviders = [
+  {
+    provide: 'BookRepository',
+    useValue: Book,
+  },
+];

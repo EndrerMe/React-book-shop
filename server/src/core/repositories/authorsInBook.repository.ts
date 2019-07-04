@@ -1,37 +1,37 @@
 // Vendors
-import { Injectable, Inject } from "@nestjs/common";
+import { Injectable, Inject } from '@nestjs/common';
 
 // Entities
-import { AuthorsInBookEntity, BookEntity, AuthorEntity } from "./../../core/entities";
+import { AuthorsAndBook, Book, Author } from './../../core/entities';
 // Models
-import { AuthorsInBookModel } from "../models";
+import { AuthorsInBookModel } from '../models';
 
 @Injectable()
-export class AuthorsInBookКRepository {
+export class AuthorsInBookRepository {
 
     constructor(
         @Inject('AuthorsInBookRepository')
-        private authorsInBookRepository: typeof AuthorsInBookEntity,
+        private authorsInBookRepository: typeof AuthorsAndBook,
         ) {
     }
 
-    public async findAll(): Promise<AuthorsInBookEntity[]> {
-        AuthorsInBookEntity.belongsTo(BookEntity, {targetKey: 'idbooks', foreignKey: 'bookid'});
-        AuthorsInBookEntity.belongsTo(AuthorEntity, {targetKey: 'idauthors"', foreignKey: 'authorid'});
-        
-        const products = this.authorsInBookRepository.findAll<AuthorsInBookEntity>({
-            include: [BookEntity, AuthorEntity],
+    public async findAll(): Promise<AuthorsAndBook[]> {
+        AuthorsAndBook.belongsTo(Book, {targetKey: 'idbooks', foreignKey: 'bookid'});
+        AuthorsAndBook.belongsTo(Author, {targetKey: 'idauthors"', foreignKey: 'authorid'});
+
+        const products = this.authorsInBookRepository.findAll<AuthorsAndBook>({
+            include: [Book, Author],
         });
 
         return await products;
     }
 
-    public async getBookById(bookId: number): Promise<AuthorsInBookEntity> {
-        AuthorsInBookEntity.belongsTo(BookEntity, {targetKey: 'idbooks', foreignKey: 'bookid'});
-        AuthorsInBookEntity.belongsTo(AuthorEntity, {targetKey: 'idauthors', foreignKey: 'authorid'});
+    public async getBookById(bookId: number): Promise<AuthorsAndBook> {
+        AuthorsAndBook.belongsTo(Book, {targetKey: 'idbooks', foreignKey: 'bookid'});
+        AuthorsAndBook.belongsTo(Author, {targetKey: 'idauthors', foreignKey: 'authorid'});
 
-        const product = this.authorsInBookRepository.findOne<AuthorsInBookEntity>({
-            include: [BookEntity, AuthorEntity],
+        const product = this.authorsInBookRepository.findOne<AuthorsAndBook>({
+            include: [Book, Author],
             where: {idproducts: bookId},
         });
 
@@ -39,16 +39,16 @@ export class AuthorsInBookКRepository {
     }
 
     public async createNewRow(product: AuthorsInBookModel): Promise<AuthorsInBookModel[]> {
-        AuthorsInBookEntity.create(product)
+        AuthorsAndBook.create(product);
 
         return;
     }
 
-    public async getAuthorForBooks(id: number): Promise<AuthorsInBookEntity[]> {
-        AuthorsInBookEntity.belongsTo(AuthorEntity, {targetKey: 'idauthors', foreignKey: 'authorid'});
+    public async getAuthorForBooks(id: number): Promise<AuthorsAndBook[]> {
+        AuthorsAndBook.belongsTo(Author, {targetKey: 'idauthors', foreignKey: 'authorid'});
 
-        const product = this.authorsInBookRepository.findAll<AuthorsInBookEntity>({
-            include: [AuthorEntity],
+        const product = this.authorsInBookRepository.findAll<AuthorsAndBook>({
+            include: [Author],
             where: {
                 bookid: id,
             },
@@ -57,8 +57,8 @@ export class AuthorsInBookКRepository {
         return await product;
     }
 
-    public async deleteBook(id: number): Promise<AuthorsInBookEntity> {
-        const product = AuthorsInBookEntity.destroy({
+    public async deleteBook(id: number): Promise<AuthorsAndBook> {
+        const product = AuthorsAndBook.destroy({
             where: {
                 bookid: id,
             },

@@ -157,6 +157,7 @@ export class BookService {
     };
 
     public getBookForPage(page: number, pageSize: number): Promise<IBook[]> {
+        console.log("ui")
         return new Promise((result, rej) => {
             axios.post(`${environment.mySql.databaseURL}/books/getForPage`, {page, pageSize})
                 .then(res => result(res.data))

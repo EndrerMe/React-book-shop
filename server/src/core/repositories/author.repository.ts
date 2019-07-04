@@ -1,39 +1,40 @@
 // Vendors
 import { Injectable, Inject } from '@nestjs/common';
 
-import { AuthorEntity } from './../../core/entities';
+// Entities
+import { Author } from './../../core/entities';
 
 @Injectable()
 export class AuthorRepoitory {
     constructor(
         @Inject('AuthorRepository')
-        private readonly authorRepository: typeof AuthorEntity,
+        private readonly authorRepository: typeof Author,
     ) {}
 
-    public async findAll(): Promise<AuthorEntity[]> {
-        const authors = this.authorRepository.findAll<AuthorEntity>();
+    public async findAll(): Promise<Author[]> {
+        const authors = this.authorRepository.findAll<Author>();
 
         return await authors;
     }
 
-    public async addNew(author: AuthorEntity): Promise<AuthorEntity> {
-        await AuthorEntity.build(author).update({
+    public async addNew(author: Author): Promise<Author> {
+        await Author.build(author).update({
             authorName: author.authorName,
         });
 
         return;
     }
 
-    public async findById(id: number): Promise<AuthorEntity> {
-        const author = this.authorRepository.findOne<AuthorEntity>({
+    public async findById(id: number): Promise<Author> {
+        const author = this.authorRepository.findOne<Author>({
             where: {idauthors: id},
         });
 
         return await author;
     }
 
-    public async delete(id: number): Promise<AuthorEntity> {
-        await AuthorEntity.destroy({
+    public async delete(id: number): Promise<Author> {
+        await Author.destroy({
             where: {
                 idauthors: id,
             },
@@ -42,8 +43,8 @@ export class AuthorRepoitory {
         return;
     }
 
-    public async change(author: AuthorEntity): Promise<AuthorEntity> {
-        await AuthorEntity.update({
+    public async change(author: Author): Promise<Author> {
+        await Author.update({
             authorName: author.authorName,
         }, {
             where: {
@@ -55,8 +56,8 @@ export class AuthorRepoitory {
         return;
     }
 
-    public async getForPage(limit: number, offset: number): Promise<AuthorEntity[]> {
-        const authors = this.authorRepository.findAll<AuthorEntity>({
+    public async getForPage(limit: number, offset: number): Promise<Author[]> {
+        const authors = this.authorRepository.findAll<Author>({
             limit: limit,
             offset: offset,
             where: {},
@@ -66,7 +67,7 @@ export class AuthorRepoitory {
     }
 
     public async findByName(name: string): Promise<number> {
-        const author: any = this.authorRepository.findOne<AuthorEntity>({
+        const author: Author = await this.authorRepository.findOne<Author>({
             where: {
                 authorName: name,
             },
@@ -76,4 +77,5 @@ export class AuthorRepoitory {
 
         return await idAuthor;
     }
+
 }

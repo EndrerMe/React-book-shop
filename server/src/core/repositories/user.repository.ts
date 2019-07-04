@@ -1,26 +1,26 @@
 // Vendors
-import { Injectable, Inject } from "@nestjs/common";
+import { Injectable, Inject } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 
 // Entities
-import { UserEntity } from "../entities";
+import { User } from '../entities';
 
 @Injectable()
 export class UserRepository {
-    constructor (
+    constructor(
         @Inject('UserRepository')
-        private readonly userRepository: typeof UserEntity,
+        private readonly userRepository: typeof User,
     ) {
         
     }
 
-    public async getAll(): Promise<UserEntity[]> {
-        const users = this.userRepository.findAll<UserEntity>();
+    public async getAll(): Promise<User[]> {
+        const users = this.userRepository.findAll<User>();
 
         return await users;
     }
 
-    public async findById(userId: number): Promise<UserEntity> {
+    public async findById(userId: number): Promise<User> {
         const user = this.userRepository.findOne({
             where: {idUser: userId},
         });
@@ -28,10 +28,10 @@ export class UserRepository {
         return await user;
     }
 
-    public async change(userData: UserEntity): Promise<UserEntity> {
+    public async change(userData: User): Promise<User> {
         const saltRounds = 10;
         const user = bcrypt.hash(userData.userPass, saltRounds, async (err, hash) => {
-            UserEntity.update({
+            User.update({
                 userName: user.userName,
                 userPass: hash,
                 userGender: user.userGender,
@@ -45,8 +45,8 @@ export class UserRepository {
         return await user;
     }
 
-    public async delete(userId: number): Promise<UserEntity> {
-        const user = UserEntity.destroy({
+    public async delete(userId: number): Promise<User> {
+        const user = User.destroy({
             where: {
                 idUser: userId,
             },
@@ -55,13 +55,13 @@ export class UserRepository {
         return;
     }
 
-    public async getForPage(limit: number, offset: number): Promise<UserEntity[]> {
-        const users = this.userRepository.findAll<UserEntity>({
+    public async getForPage(limit: number, offset: number): Promise<User[]> {
+        const users = this.userRepository.findAll<User>({
             limit: limit,
             offset: offset,
             where: {},
           });
 
-        return await users;  
+        return await users;
     }
 }

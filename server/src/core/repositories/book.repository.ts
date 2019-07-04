@@ -1,38 +1,38 @@
 // Vendors
-import { Injectable, Inject } from "@nestjs/common";
-import { Op } from "sequelize";
+import { Injectable, Inject } from '@nestjs/common';
+import { Op } from 'sequelize';
 
 // Entities
-import { BookEntity } from "./../../core/entities";
+import { Book } from './../../core/entities';
 // Models
-import { AuthorModel, BookModel } from "../models";
+import { AuthorModel, BookModel, NewRowBookAuthorsModel } from '../models';
 // Services
-import { AuthorsInBookService } from "../services";
+import { AuthorsInBookService } from '../services';
 
 @Injectable()
 export class BookRepository {
     constructor(
         @Inject('BookRepository')
-        private readonly bookRepository: typeof BookEntity,
-        private authorsInBookService: AuthorsInBookService
+        private readonly bookRepository: typeof Book,
+        private authorsInBookService: AuthorsInBookService,
     ) {}
 
-    public async findAll(): Promise<BookEntity[]> {
-        const books = this.bookRepository.findAll<BookEntity>();
+    public async findAll(): Promise<Book[]> {
+        const books = this.bookRepository.findAll<Book>();
 
         return await books;
     }
 
-    public async findById(bookId: number): Promise<BookEntity> {
-        const book = this.bookRepository.findOne<BookEntity>({
+    public async findById(bookId: number): Promise<Book> {
+        const book = this.bookRepository.findOne<Book>({
             where: {idbooks: bookId},
         });
 
         return await book;
     }
 
-    public async addNew(book: BookModel): Promise<BookEntity> {
-        let newBook: any;
+    public async addNew(book: BookModel): Promise<Book> {
+        let newBook: Promise<BookModel | NewRowBookAuthorsModel>;
         const authors: AuthorModel[] = book.authors;
         delete book.authors;
         const createdBook = await this.bookRepository.build(book);
@@ -43,12 +43,12 @@ export class BookRepository {
         return;
     }
 
-    public async change(book: BookModel): Promise<BookEntity> {
+    public async change(book: BookModel): Promise<Book> {
         await this.authorsInBookService.chagneRows(book.bookid, book.authors);
 
         delete book.authors;
 
-        await BookEntity.update({
+        await Book.update({
             title: book.title,
             type: book.type,
             description: book.description,
@@ -60,10 +60,10 @@ export class BookRepository {
         return;
     }
 
-    public async delete(bookId: number): Promise<BookEntity> {
+    public async delete(bookId: number): Promise<Book> {
         await this.authorsInBookService.deleteBook(bookId);
 
-        await BookEntity.destroy({
+        await Book.destroy({
             where: {
                 idbooks: bookId,
             },
@@ -72,36 +72,36 @@ export class BookRepository {
         return;
     }
 
-    public async getForPage(limit: number, offset: number): Promise<BookEntity[]> {
-        const books = this.bookRepository.findAll<BookEntity>({
+    public async getForPage(limit: number, offset: number): Promise<Book[]> {
+        const books = this.bookRepository.findAll<Book>({
             limit: limit,
             offset: offset,
             where: {},
         });
 
-        return books;
+        return await books;
     }
 
-    public async findByTitle(title: string): Promise<BookEntity[]> {
-        const books = this.bookRepository.findAll<BookEntity>({
+    public async findByTitle(title: string): Promise<Book[]> {
+        const books = this.bookRepository.findAll<Book>({
             where: {title: title},
-        })
+        });
 
         return books;
     }
 
-    public async findByType(type: string): Promise<BookEntity[]> {
-        const books = this.bookRepository.findAll<BookEntity>({
+    public async findByType(type: string): Promise<Book[]> {
+        const books = this.bookRepository.findAll<Book>({
             where: {type: type},
-        })
+        });
 
         return books;
     }
 
-    public async findByPrice(min: number, max: number): Promise<BookEntity[]> {
-        const books = this.bookRepository.findAll<BookEntity>({
+    public async findByPrice(min: number, max: number): Promise<Book[]> {
+        const books = this.bookRepository.findAll<Book>({
             where: {[Op.and]: [{price: {[Op.gt] : +min}}, {price: {[Op.lt] : +max}}]},
-        })
+        });
 
         return books;
     }

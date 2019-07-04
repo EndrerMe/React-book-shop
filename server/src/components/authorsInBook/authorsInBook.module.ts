@@ -7,10 +7,10 @@ import { AuthorsModule } from '../authors/authors.module';
 // Controllers
 import { AuthorsInBookController } from './authorsInBook.controller';
 // Providers
-import { booksAuthorsProviders } from '../../core/providers/';
+import { booksAuthorsProviders, authorProviders } from '../../core/providers/';
 // Services
 import { AuthorsInBookService } from './../../core/services';
-import { AuthorsInBookКRepository, AuthorRepoitory } from './../../core/repositories';
+import { AuthorsInBookRepository, AuthorRepoitory } from './../../core/repositories';
 
 @Module({
   imports: [
@@ -21,10 +21,11 @@ import { AuthorsInBookКRepository, AuthorRepoitory } from './../../core/reposit
     AuthorsInBookController,
   ],
   providers: [
-    AuthorsInBookКRepository,
+    AuthorsInBookRepository,
     AuthorRepoitory,
     AuthorsInBookService,
-    booksAuthorsProviders,
+    ...booksAuthorsProviders,
+    ...authorProviders,
   ],
 })
 export class AuthorsInBookModule {}

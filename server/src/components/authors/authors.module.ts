@@ -20,7 +20,7 @@ import { AuthorRepoitory } from './../../core/repositories';
     AuthorsController,
   ],
   providers: [
-    authorProviders,
+    ...authorProviders,
     AuthorsService,
     AuthorRepoitory,
   ],

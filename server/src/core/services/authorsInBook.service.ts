@@ -2,27 +2,26 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 
 // Entitys
-import { AuthorsInBookEntity, BookEntity, AuthorEntity } from '../entities';
+import { AuthorsAndBook, Book, Author } from '../entities';
 // Models
 import { AuthorsInBookModel, NewRowBookAuthorsModel, AuthorModel } from '../models/';
 // Repository
-import { AuthorsInBookКRepository, AuthorRepoitory } from '../repositories';
-
+import { AuthorsInBookRepository, AuthorRepoitory } from '../repositories';
 
 @Injectable()
 export class AuthorsInBookService {
 
     constructor(
-        private authorsInBookКRepository: AuthorsInBookКRepository,
-        private authorRepoitory: AuthorRepoitory
+        private authorsInBookКRepository: AuthorsInBookRepository,
+        private authorRepoitory: AuthorRepoitory,
         ) {
         }
 
-    public async findAll(): Promise<AuthorsInBookEntity[]> {
-        return await this.authorsInBookКRepository.findAll()
+    public async findAll(): Promise<AuthorsAndBook[]> {
+        return await this.authorsInBookКRepository.findAll();
     }
 
-    public async getBookById(id: number): Promise<AuthorsInBookEntity> {
+    public async getBookById(id: number): Promise<AuthorsAndBook> {
         return await this.authorsInBookКRepository.getBookById(id);
     }
 
@@ -41,26 +40,26 @@ export class AuthorsInBookService {
         }
 
         for (let i = 0; i < bookIdWithAuthorId.length; i++) {
-            this.authorsInBookКRepository.createNewRow(bookIdWithAuthorId[i])
+            this.authorsInBookКRepository.createNewRow(bookIdWithAuthorId[i]);
         }
-
-        return
-    }
-
-    public async getAuthorForBooks(id: number): Promise<AuthorsInBookEntity[]> {
-        return await this.authorsInBookКRepository.getAuthorForBooks(id)
-    }
-
-    public async deleteBook(id: number): Promise<AuthorsInBookEntity> {
-        await this.authorsInBookКRepository.deleteBook(id)
 
         return;
     }
 
-    public async chagneRows(bookId: number, authors: AuthorEntity[]): Promise<AuthorsInBookEntity[]> {
+    public async getAuthorForBooks(id: number): Promise<AuthorsAndBook[]> {
+        return await this.authorsInBookКRepository.getAuthorForBooks(id);
+    }
+
+    public async deleteBook(id: number): Promise<AuthorsAndBook> {
+        await this.authorsInBookКRepository.deleteBook(id);
+
+        return;
+    }
+
+    public async chagneRows(bookId: number, authors: Author[]): Promise<AuthorsAndBook[]> {
         const bookIdWithAuthorId: AuthorsInBookModel[] = [] as AuthorsInBookModel[];
 
-        await this.authorsInBookКRepository.deleteBook(bookId)
+        await this.authorsInBookКRepository.deleteBook(bookId);
 
         for (let i = 0; i < authors.length; i++) {
             bookIdWithAuthorId[i] = {
@@ -70,21 +69,21 @@ export class AuthorsInBookService {
         }
 
         for (let i = 0; i < bookIdWithAuthorId.length; i++) {
-            AuthorsInBookEntity.create(bookIdWithAuthorId[i]);
+            AuthorsAndBook.create(bookIdWithAuthorId[i]);
         }
 
         return;
     }
 
-    public async findByAuthor(author: string): Promise<AuthorsInBookEntity[]> {
+    public async findByAuthor(author: string): Promise<AuthorsAndBook[]> {
         let authorId: number;
-        AuthorsInBookEntity.belongsTo(BookEntity, {targetKey: 'idbooks', foreignKey: 'bookid'});
+        AuthorsAndBook.belongsTo(Book, {targetKey: 'idbooks', foreignKey: 'bookid'});
         await this.authorRepoitory.findByName(author).then((res) => {
             authorId = res;
         });
 
         if (authorId !== undefined) {
-            return await this.authorsInBookКRepository.findAll()
+            return await this.authorsInBookКRepository.findAll();
         } else {
             throw new HttpException({
                 status: HttpStatus.BAD_REQUEST,

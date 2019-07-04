@@ -2,34 +2,34 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 
 // Entitys
-import { AuthorEntity } from '../entities';
+import { Author } from '../entities';
 // Repositories
 import { AuthorRepoitory } from '../repositories';
 
 @Injectable()
 export class AuthorsService {
     constructor(
-        private authorRepoitory: AuthorRepoitory
+        private authorRepoitory: AuthorRepoitory,
     ) {}
 
-    public async findAll(): Promise<AuthorEntity[]> {
-        return await this.authorRepoitory.findAll()
+    public async findAll(): Promise<Author[]> {
+        return await this.authorRepoitory.findAll();
     }
 
-    public async addNew(author: AuthorEntity): Promise<AuthorEntity> {
-        await this.authorRepoitory.addNew(author)
+    public async addNew(author: Author): Promise<Author> {
+        await this.authorRepoitory.addNew(author);
 
         return;
     }
 
-    public async delete(author: AuthorEntity): Promise<AuthorEntity> {
-        let isAuthor: AuthorEntity;
+    public async delete(author: Author): Promise<Author> {
+        let isAuthor: Author;
         await this.authorRepoitory.findById(author.idauthors).then((res) => {
             isAuthor = res;
         });
 
         if (isAuthor) {
-            await AuthorEntity.destroy({
+            await Author.destroy({
                 where: {
                     idauthors: author.idauthors,
                 },
@@ -44,15 +44,15 @@ export class AuthorsService {
         return;
     }
 
-    public async change(author: AuthorEntity): Promise<AuthorEntity> {
-        let isAuthor: AuthorEntity;
+    public async change(author: Author): Promise<Author> {
+        let isAuthor: Author;
 
         await this.authorRepoitory.findById(author.idauthors).then((res) => {
             isAuthor = res;
         });
 
         if (isAuthor) {
-            this.authorRepoitory.change(author)
+            this.authorRepoitory.change(author);
         } else {
             throw new HttpException({
                 status: HttpStatus.BAD_REQUEST,
@@ -62,14 +62,14 @@ export class AuthorsService {
 
         return;
     }
-    public async getForPage(page: number, pageSize: number): Promise<AuthorEntity[]> {
+    public async getForPage(page: number, pageSize: number): Promise<Author[]> {
         const offset = (page - 1) * pageSize;
         const limit = pageSize;
-        return this.authorRepoitory.getForPage(limit, offset)
+        return this.authorRepoitory.getForPage(limit, offset);
     }
 
     public async findByName(authorName: string): Promise<number> {
-        let isAuthor: any;
+        let isAuthor: number;
 
         await this.authorRepoitory.findByName(authorName).then((res) => {
             isAuthor = res;
