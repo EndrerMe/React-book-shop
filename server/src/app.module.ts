@@ -21,7 +21,6 @@ import { AuthorsInBookModule } from './components/authorsInBook/authorsInBook.mo
     AuthorsModule,
     AuthModule,
     UsersModule,
-    DatabaseModule,
   ],
   controllers: [
     AppController,
