@@ -48,7 +48,7 @@ export class AuthService {
         return false;
     }
 
-    public async create(user: User): Promise<User> {
+    public async create(user: User): Promise<string> {
         const saltRounds = 10;
         let isUserEmail: boolean = true;
         let isUser: number;

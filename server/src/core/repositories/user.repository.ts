@@ -30,19 +30,19 @@ export class UserRepository {
 
     public async change(userData: User): Promise<User> {
         const saltRounds = 10;
-        const user = bcrypt.hash(userData.userPass, saltRounds, async (err, hash) => {
+        bcrypt.hash(userData.userPass, saltRounds, async (err, hash) => {
             User.update({
-                userName: user.userName,
+                userName: userData.userName,
                 userPass: hash,
-                userGender: user.userGender,
-                userRole: user.userRole,
-                userEmail: user.userEmail,
+                userGender: userData.userGender,
+                userRole: userData.userRole,
+                userEmail: userData.userEmail,
             }, {
-                where: {idUser: user.idUser},
+                where: { idUser: userData.idUser },
             });
         });
 
-        return await user;
+        return;
     }
 
     public async delete(userId: number): Promise<User> {

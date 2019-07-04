@@ -13,7 +13,7 @@ export class AuthController {
     ) {}
 
     @Post('regist')
-    public async regist(@Body() user: User): Promise<User> {
+    public async regist(@Body() user: User): Promise<String> {
         return this.authService.create(user);
     }
 

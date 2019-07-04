@@ -43,7 +43,7 @@ export class AuthRepository {
         return await user;
     }
 
-    public async create(user: User, saltRounds: number): Promise<User> {
+    public async create(user: User, saltRounds: number): Promise<string> {
         const newUser = await bcrypt.hash(user.userPass, saltRounds, async (err, hash) => {
             user.userPass = hash;
             User.build(user).update({
