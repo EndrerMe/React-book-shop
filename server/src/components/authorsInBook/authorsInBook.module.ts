@@ -1,5 +1,6 @@
 // Vendors
 import { Module } from '@nestjs/common';
+import { PassportModule } from '@nestjs/passport';
 
 // Modules
 import { DatabaseModule } from '../../database/database.module';
@@ -16,6 +17,7 @@ import { AuthorsInBookRepository, AuthorRepoitory } from './../../core/repositor
   imports: [
     DatabaseModule,
     AuthorsModule,
+    PassportModule.register({ defaultStrategy: 'jwt' }),
   ],
   controllers: [
     AuthorsInBookController,

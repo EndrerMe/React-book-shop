@@ -1,5 +1,6 @@
 // Vendors
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 // Serivces
 import { AuthorsService } from '../../core/services/';
@@ -15,21 +16,25 @@ export class AuthorsController {
     ) {}
 
     @Get('getAll')
+    @UseGuards(AuthGuard())
     public async getAll(): Promise<Author[]> {
         return await this.authorsService.findAll();
     }
 
     @Post('addNew')
+    @UseGuards(AuthGuard())
     public async addNew(@Body() author: Author): Promise<Author> {
         return await this.authorsService.addNew(author);
     }
 
     @Post('delete')
+    @UseGuards(AuthGuard())
     public async delete(@Body() author: Author): Promise<Author> {
         return await this.authorsService.delete(author);
     }
 
     @Post('change')
+    @UseGuards(AuthGuard())
     public async change(@Body() author: Author): Promise<Author> {
         return await this.authorsService.change(author);
     }

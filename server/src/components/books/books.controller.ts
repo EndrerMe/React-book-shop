@@ -1,5 +1,6 @@
 // Vendors
-import { Controller, Get, Param, Post, Body } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 // Services
 import { BooksService } from '../../core/services/';
@@ -25,16 +26,19 @@ export class BooksController {
     }
 
     @Post('addNew')
+    @UseGuards(AuthGuard())
     public async addNew(@Body() book: BookModel): Promise<Book> {
         return await this.booksService.addNew(book);
     }
 
     @Post('chagne')
+    @UseGuards(AuthGuard())
     public async chagne(@Body() book: BookModel): Promise<Book> {
         return await this.booksService.change(book);
     }
 
     @Post('delete')
+    @UseGuards(AuthGuard())
     public async delete(@Body() bookid: {id: number}): Promise<Book> {
         return await this.booksService.delete(bookid.id);
     }
