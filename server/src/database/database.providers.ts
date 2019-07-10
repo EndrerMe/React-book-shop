@@ -2,7 +2,10 @@
 import { Sequelize } from 'sequelize-typescript';
 
 // Entitys
-import { AuthorsAndBook, Book, User, Author } from '../core/entities';
+import { BooksAuthors } from '../components/booksAuthors/booksAuthors.entity';
+import { Books } from './../components/books/books.entity';
+import { Authors } from './../components/authors/authors.entity';
+import { Users } from './../components/auth/auth.entity';
 
 export const databaseProviders = [
     {
@@ -16,7 +19,7 @@ export const databaseProviders = [
           password: 'password',
           database: 'bookshop',
         });
-        sequelize.addModels([AuthorsAndBook, Book, User, Author]);
+        sequelize.addModels([BooksAuthors, Books, Authors, Users]);
         await sequelize.sync();
         return sequelize;
       },

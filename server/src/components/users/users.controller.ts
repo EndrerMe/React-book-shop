@@ -1,13 +1,12 @@
 // Vendors
-import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 
 // Services
-import { UsersService } from '../../core/services/';
-// Entities
-import { User } from '../../core/entities/';
+import { UsersService } from './users.service';
+// Entitys
+import { Users } from '../auth/auth.entity';
 // Models
-import { PaginationModel } from '../../core/models/';
+import { PaginationModel } from './../../shared/models/pagination.model';
 
 @Controller('users')
 export class UsersController {
@@ -16,27 +15,23 @@ export class UsersController {
         private usersService: UsersService,
     ) {}
 
-    @Get('getAll')
-    @UseGuards(AuthGuard())
-    public async getAll(): Promise<User[]> {
-        return await this.usersService.getAll();
+    @Get('getAllUsers')
+    public async getAllUsers(): Promise<Users[]> {
+        return await this.usersService.getAllUsers();
     }
 
-    @Post('changeData')
-    @UseGuards(AuthGuard())
-    public async changeData(@Body() user: User): Promise<User> {
-        return await this.usersService.change(user);
+    @Post('changeUserData')
+    public async changeUserData(@Body() user: Users): Promise<Users> {
+        return await this.usersService.changeUser(user);
     }
 
-    @Post('delete')
-    @UseGuards(AuthGuard())
-    public async delete(@Body() user: User): Promise<User> {
-        return await this.usersService.delete(user);
+    @Post('deleteUser')
+    public async deleteUser(@Body() user: Users): Promise<Users> {
+        return await this.usersService.deleteUser(user);
     }
 
-    @Post('getForPage')
-    @UseGuards(AuthGuard())
-    public async getForPage(@Body() page: PaginationModel): Promise<User[]> {
-        return await this.usersService.getForPage(page.page, page.pageSize);
+    @Post('getUsersForPage')
+    public async getUsersForPage(@Body() page: PaginationModel): Promise<Users[]> {
+        return await this.usersService.getUsersForPage(page.page, page.pageSize);
     }
 }

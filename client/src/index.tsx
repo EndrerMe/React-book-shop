@@ -1,26 +1,34 @@
 // Vendors
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from "redux"
+import { createStore, compose, applyMiddleware } from "redux"
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
+import createSagaMiddleware from 'redux-saga';
+import { createBrowserHistory } from 'history';
 
 // Styles
 import './index.css';
 // Components
 import App from './App';
 // Reducers
-import allReducers from './reducers';
+import { LoginReducer } from './reducers/login.reducer';
+// Sagas
+import { LoginSaga } from './sagas/login.saga';
+// History
+import { history } from './history'
 
-
+const sagaMiddleware = createSagaMiddleware();
 const STORE = createStore(
-    allReducers,
+    LoginReducer,
+    applyMiddleware(sagaMiddleware),
 );
 
+sagaMiddleware.run(LoginSaga)
 
 ReactDOM.render(
     <Provider store={STORE}>
-        <App />
+        <App store={STORE} history={history}/>
     </Provider>
 
     , document.getElementById('root'));

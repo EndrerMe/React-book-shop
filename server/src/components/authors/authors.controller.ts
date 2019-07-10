@@ -1,13 +1,12 @@
 // Vendors
-import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 
 // Serivces
-import { AuthorsService } from '../../core/services/';
-// Entities
-import { Author } from '../../core/entities/';
+import { AuthorsService } from './authors.service';
+// Entitys
+import { Authors } from './authors.entity';
 // Models
-import { PaginationModel } from '../../core/models/';
+import { PaginationModel } from './../../shared/models/pagination.model';
 
 @Controller('authors')
 export class AuthorsController {
@@ -15,32 +14,28 @@ export class AuthorsController {
         private authorsService: AuthorsService,
     ) {}
 
-    @Get('getAll')
-    @UseGuards(AuthGuard())
-    public async getAll(): Promise<Author[]> {
-        return await this.authorsService.findAll();
+    @Get('getAllAuthors')
+    public async getAllAuthors(): Promise<Authors[]> {
+        return await this.authorsService.findAllAuthors();
     }
 
-    @Post('addNew')
-    @UseGuards(AuthGuard())
-    public async addNew(@Body() author: Author): Promise<Author> {
-        return await this.authorsService.addNew(author);
+    @Post('addNewAuthor')
+    public async addNewAuthor(@Body() author: Authors): Promise<Authors> {
+        return await this.authorsService.addNewAuthor(author);
     }
 
-    @Post('delete')
-    @UseGuards(AuthGuard())
-    public async delete(@Body() author: Author): Promise<Author> {
-        return await this.authorsService.delete(author);
+    @Post('deleteAuthor')
+    public async deleteAuthor(@Body() author: Authors): Promise<Authors> {
+        return await this.authorsService.deleteAuthor(author);
     }
 
-    @Post('change')
-    @UseGuards(AuthGuard())
-    public async change(@Body() author: Author): Promise<Author> {
-        return await this.authorsService.change(author);
+    @Post('changeAuthor')
+    public async changeAuthor(@Body() author: Authors): Promise<Authors> {
+        return await this.authorsService.changeAuthor(author);
     }
 
-    @Post('getForPage')
-    public async getForPage(@Body() page: PaginationModel): Promise<Author[]> {
-        return await this.authorsService.getForPage(page.page, page.pageSize);
+    @Post('getAuthorsForPage')
+    public async getAuthorsForPage(@Body() page: PaginationModel): Promise<Authors[]> {
+        return await this.authorsService.getAuthorsForPage(page.page, page.pageSize);
     }
 }

@@ -1,30 +1,28 @@
 // Vendors
 import { Module } from '@nestjs/common';
-import { PassportModule } from '@nestjs/passport';
 
 // Controllers
 import { AuthorsController } from './authors.controller';
+// Services
+import { AuthorsService } from './authors.service';
 // Modules
 import { DatabaseModule } from './../../database/database.module';
 // Providers
-import { authorProviders } from '../../core/providers/';
-// Services
-import { AuthorsService } from '../../core/services';
-// Repositories
-import { AuthorRepoitory } from './../../core/repositories';
+import { authorsProviders } from './authors.provier';
 
 @Module({
   imports: [
     DatabaseModule,
-    PassportModule.register({ defaultStrategy: 'jwt' }),
   ],
   controllers: [
     AuthorsController,
   ],
   providers: [
-    ...authorProviders,
     AuthorsService,
-    AuthorRepoitory,
+    ...authorsProviders,
+  ],
+  exports: [
+    AuthorsService,
   ],
 })
 export class AuthorsModule {}

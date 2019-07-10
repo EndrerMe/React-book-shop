@@ -1,13 +1,13 @@
 // Vendors
-import { Controller, Get, Param, Post, Body, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { Controller, Get, Param, Post, Body } from '@nestjs/common';
 
 // Services
-import { BooksService } from '../../core/services/';
-// Entities
-import { Book } from '../../core/entities/';
+import { BooksService } from './books.service';
+// Entitys
+import { Books } from './books.entity';
 // Models
-import { BookModel, PaginationModel } from '../../core/models/';
+import { BookModel } from './model/book.model';
+import { PaginationModel } from './../../shared/models/pagination.model';
 
 @Controller('books')
 export class BooksController {
@@ -15,51 +15,48 @@ export class BooksController {
         private booksService: BooksService,
     ) {}
 
-    @Get('getAll')
-    public async getAll(): Promise<Book[]> {
-        return await this.booksService.findAll();
+    @Get('getAllBooks')
+    public async getAllBooks(): Promise<Books[]> {
+        return await this.booksService.findAllBooks();
     }
 
-    @Get('getById/:id')
-    public async findById(@Param('id') id: number): Promise<Book> {
-        return await this.booksService.findById(id);
+    @Get('getBookById/:id')
+    public async findBookById(@Param('id') id: number): Promise<Books> {
+        return await this.booksService.findBookById(id);
     }
 
-    @Post('addNew')
-    @UseGuards(AuthGuard())
-    public async addNew(@Body() book: BookModel): Promise<Book> {
-        return await this.booksService.addNew(book);
+    @Post('addNewBook')
+    public async addNewBook(@Body() book: BookModel): Promise<Books> {
+        return await this.booksService.addNewBook(book);
     }
 
-    @Post('chagne')
-    @UseGuards(AuthGuard())
-    public async chagne(@Body() book: BookModel): Promise<Book> {
-        return await this.booksService.change(book);
+    @Post('chagneBook')
+    public async chagneBook(@Body() book: BookModel): Promise<Books> {
+        return await this.booksService.changeBook(book);
     }
 
-    @Post('delete')
-    @UseGuards(AuthGuard())
-    public async delete(@Body() bookid: {id: number}): Promise<Book> {
-        return await this.booksService.delete(bookid.id);
+    @Post('deleteBook')
+    public async deleteBook(@Body() bookid: {id: number}): Promise<Books> {
+        return await this.booksService.deleteBook(bookid.id);
     }
 
-    @Post('getForPage')
-    public async getForPage(@Body() page: PaginationModel): Promise<Book[]> {
-        return await this.booksService.getForPage(page.page, page.pageSize);
+    @Post('getBookForPage')
+    public async getBookForPage(@Body() page: PaginationModel): Promise<Books[]> {
+        return await this.booksService.getBookForPage(page.page, page.pageSize);
     }
 
     @Post('findByTitle')
-    public async findByTitle(@Body() title: {title: string}): Promise<Book[]> {
+    public async findByTitle(@Body() title: {title: string}): Promise<Books[]> {
         return await this.booksService.findByTitle(title.title);
     }
 
     @Post('findByPrice')
-    public async findByPrice(@Body() price: {min: number, max: number}): Promise<Book[]> {
+    public async findByPrice(@Body() price: {min: number, max: number}): Promise<Books[]> {
         return await this.booksService.findByPrice(price);
     }
 
     @Post('findByType')
-    public async findByType(@Body() type: {type: string}): Promise<Book[]> {
+    public async findByType(@Body() type: {type: string}): Promise<Books[]> {
         return await this.booksService.findByType(type.type);
     }
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import { Router, Route, Redirect } from "react-router";
 import { createBrowserHistory } from "history";
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, BrowserRouter } from 'react-router-dom';
 import Pagination from "react-js-pagination";
 
 // Style
@@ -25,8 +25,8 @@ import { booksFetchData } from "./actions/books"
 import { PrivateRoute } from './shared/guards';
 // Interfaces 
 import { IBook } from './shared/interfaces';
+import { ConnectedRouter } from 'react-router-redux';
 
-const HISTORY = createBrowserHistory();
 const bagService = new BagService();
 const bookService = new BookService();
 
@@ -174,7 +174,7 @@ class App extends React.Component<any, any> {
   public render() { 
     const { data } = this.state;
     return(
-      <Router history={HISTORY}>
+      <Router history={this.props.history}>
         <Route exact path="/" render={() => (
           <Redirect to="/all-books"/>
         )}/>
@@ -329,7 +329,8 @@ class App extends React.Component<any, any> {
             {
               return(
                 <div className="login">
-                  <Login></Login>
+                  <Login
+                  store={this.props.store}></Login>
                 </div>
               );
             } 
@@ -357,12 +358,8 @@ class App extends React.Component<any, any> {
   }
 }
 const mapStateToProps = (state: any) => {
-  return {response: state};
-}
-
-const mapDisatchToProps = (dispatch: any) => {
   return {
-    fetchData: (url: any) => {dispatch(booksFetchData(url))}
+    showFilter: state
   };
 }
-export default connect (mapStateToProps, mapDisatchToProps)(App);
+export default connect (mapStateToProps)(App);

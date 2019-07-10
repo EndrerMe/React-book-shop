@@ -5,10 +5,13 @@ import React from "react"
 import "./login.scss"
 // Services
 import { AuthService } from "../../shared/services";
+import { connect } from 'react-redux';
+import { sendDataRequest } from './../../actions';
+import { IAuth } from "../../shared/interfaces";
 
 const auth = new AuthService();
 
-export default class Login extends React.Component<any, any> {
+class Login extends React.Component<any, any> {
 
     constructor(props: any) {
         super(props);
@@ -37,7 +40,11 @@ export default class Login extends React.Component<any, any> {
     };
 
     private login(): void {
-        auth.login(this.state.user);
+        this.props.login(this.state.user)
+        // this.props.store.dispatch({
+        //     type: "Login",
+        //     userData: 
+        // })
     };
 
     public render() {
@@ -61,5 +68,19 @@ export default class Login extends React.Component<any, any> {
             </form>
         );
     }
-
 }
+
+const mapStateToProps = (state: any) => ({
+    value: state
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+    login: (user: IAuth) => {
+        dispatch({
+            type: '@@AUTH/LOGIN',
+            userData: user
+        })
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
