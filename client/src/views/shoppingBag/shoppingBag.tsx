@@ -9,9 +9,9 @@ interface IShoppingBag {
     bag: []
 }
 
-export default class ShoppingBag extends React.Component<{}, IShoppingBag> {
+export default class ShoppingBag extends React.Component<{} ,IShoppingBag> {
     constructor(
-        props: any
+        props: {}
         ) {
         super(props);
         this.state = {

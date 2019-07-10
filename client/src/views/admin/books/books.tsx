@@ -8,14 +8,14 @@ import "./books.scss"
 // Services
 import { BookService, AuthorService } from "../../../shared/services";
 // Interfaces
-import { IBook } from "../../../shared/interfaces";
+import { IBook, IAuthor } from "../../../shared/interfaces";
 
 const bookService = new BookService();
 const authorService = new AuthorService();
 
 
 export default class Books extends React.Component<any,any> {
-    constructor (props: any) {
+    constructor (props: null) {
         super(props)
 
         this.state = {
@@ -85,6 +85,7 @@ export default class Books extends React.Component<any,any> {
     };
 
     private async addToMultiselectValue(option: any): Promise<void> {
+        console.log(option)
         await this.setState((prevState: any) => ({
             newBook: {
                 ...prevState.newBook,

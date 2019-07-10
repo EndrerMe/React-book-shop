@@ -30,17 +30,5 @@ export class AuthService {
     };
     public async login(user: IAuth): Promise<void> {
         return await axios.post(`${environment.mySql.databaseURL}/auth/login`, user )
-           
-        
-        // .catch((err) => {
-            // if (err.response) {
-            //     if (err.response.status === 404) {
-            //         notify(err.response.data.error);
-            //     };
-            //     if (err.response.status === 403) {
-            //         notify(err.response.data.error);
-            //     };
-            // };
-        // });
     };
 }; 

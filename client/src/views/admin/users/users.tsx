@@ -23,7 +23,7 @@ export default class Users extends React.Component<any,any> {
 
     private passValid: RegExp = /^(?=.*\d).{4,8}$/;
 
-    constructor (props: any) {
+    constructor (props: null) {
         super(props);
 
         this.state = {

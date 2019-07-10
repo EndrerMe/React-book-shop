@@ -19,13 +19,10 @@ import Books from './views/admin/books/books';
 import Users from './views/admin/users/users';
 // Services
 import { BagService, BookService } from './shared/services';
-// Actions
-import { booksFetchData } from "./actions/books"
 // Guards
 import { PrivateRoute } from './shared/guards';
 // Interfaces 
 import { IBook } from './shared/interfaces';
-import { ConnectedRouter } from 'react-router-redux';
 
 const bagService = new BagService();
 const bookService = new BookService();

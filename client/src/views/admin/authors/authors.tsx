@@ -13,7 +13,7 @@ const authorService = new AuthorService();
 
 export default class Authors extends React.Component<any, any> {
 
-    constructor (props: any) {
+    constructor (props: null) {
         super(props)
         this.state = {
             addNewAuthorModal: false,

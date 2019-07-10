@@ -46,7 +46,6 @@ export class BooksAuthorsService {
             include: [Books, Authors],
             where: {bookid: id},
         });
-
         return books;
     }
 

@@ -11,7 +11,7 @@ interface iNav {
 }
 
 export default class Navigation extends React.Component<{}, iNav> {
-    constructor(props:any) {
+    constructor(props: {}) {
         super(props);
         this.state = {
             showNav: false,

@@ -17,11 +17,6 @@ export function* LoginSaga(): IterableIterator<{}> {
                 type: '@@AUTH/LOGIN_ERROR',
                 error: err.response
             })
-            // if (err.response) {
-                // if (err.response.status === 404 || err.response.status === 403) {
-                //     notify(err.response.data.error);
-                // };
-            // };
             return
         }
         
@@ -33,7 +28,5 @@ export function* LoginSaga(): IterableIterator<{}> {
         yield put({
             type: '@@AUTH/LOGIN_SUCCESS',
         })
-        // history.push('/all-books')
-       // yield put(push("/all-books"))
     });
 }

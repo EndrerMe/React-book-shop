@@ -12,9 +12,9 @@ import './index.css';
 // Components
 import App from './App';
 // Reducers
-import { LoginReducer } from './reducers/login.reducer';
+import { LoginReducer } from './reducers/';
 // Sagas
-import { LoginSaga } from './sagas/login.saga';
+import { LoginSaga } from './sagas/';
 // History
 import { history } from './history'
 

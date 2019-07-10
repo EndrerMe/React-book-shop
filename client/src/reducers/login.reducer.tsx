@@ -7,7 +7,6 @@ import { AuthService } from "./../shared/services/auth.service";
 // History
 import { history } from './../history';
 
-const authService = new AuthService();
 toast.configure()
 const notify = (text: string) => toast(text);
 

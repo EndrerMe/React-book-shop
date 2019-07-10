@@ -101,6 +101,7 @@ export class BookService {
             fetch(`${environment.mySql.databaseURL}/booksAuthors/getBook/` + id)
             .then( res => res.json() )
             .then( (data: any) => {
+                console.log(data)
                 const book = data[0].Book;
                 book.author = [];
                 for(let i = 0; i < data.length; i++) {

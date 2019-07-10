@@ -17,9 +17,9 @@ const history = createBrowserHistory();
 toast.configure();
 const notify = (text: string) => toast(text);
 
-export default class Registraton extends React.Component<any, any> {
+export default class Registraton extends React.Component<{}, any> {
 
-    constructor(props: any) {
+    constructor(props: {}) {
         super(props);
         this.state = {
             newUser: {

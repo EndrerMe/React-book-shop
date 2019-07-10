@@ -9,7 +9,7 @@ import Navigation from "../navigation/nav";
 export default class Header extends React.Component<any, any> {
 
     constructor (
-        props: any
+        props: null
     ) {
         super(props)
         this.state = {
