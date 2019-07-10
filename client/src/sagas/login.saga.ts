@@ -1,7 +1,8 @@
-import { all, put, select, call, takeLatest, takeEvery } from 'redux-saga/effects';
-import { push } from 'react-router-redux';
+// Vendors
+import { put, call, takeEvery } from 'redux-saga/effects';
+
+// Services
 import { AuthService } from "./../shared/services/auth.service";
-import { history } from './../history';
 
 const authService = new AuthService();
 

@@ -1,12 +1,12 @@
 // Vendors
 import React from "react"
+import { connect } from 'react-redux';
 
 // Style
 import "./login.scss"
 // Services
 import { AuthService } from "../../shared/services";
-import { connect } from 'react-redux';
-import { sendDataRequest } from './../../actions';
+// Interfaces
 import { IAuth } from "../../shared/interfaces";
 
 const auth = new AuthService();

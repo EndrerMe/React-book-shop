@@ -1,6 +1,10 @@
-import { AuthService } from "./../shared/services/auth.service";
+// Vendors
 import { toast } from 'react-toastify';
 import jwt_decode from "jwt-decode";
+
+// Services
+import { AuthService } from "./../shared/services/auth.service";
+// History
 import { history } from './../history';
 
 const authService = new AuthService();
