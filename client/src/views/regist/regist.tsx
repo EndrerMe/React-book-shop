@@ -10,6 +10,8 @@ import "./regist.scss"
 import { Gender, userRole } from "../../shared/enums";
 // Serivces
 import { AuthService } from "../../shared/services";
+// Interfaces
+import { IUser } from "../../shared/interfaces";
 
 
 const auth = new AuthService();
@@ -48,7 +50,9 @@ export default class Registraton extends React.Component<{}, any> {
                 [name]: value,
             });
         } else {
-            this.setState((prevState: any) => ({
+            this.setState((prevState: {
+                newUser: IUser
+            }) => ({
                 newUser: {
                     ...prevState.newUser,
                     [name]: value,

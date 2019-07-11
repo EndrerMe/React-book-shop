@@ -8,7 +8,8 @@ import "./books.scss"
 // Services
 import { BookService, AuthorService } from "../../../shared/services";
 // Interfaces
-import { IBook, IAuthor } from "../../../shared/interfaces";
+import { IBook, IAuthor, IUser } from "../../../shared/interfaces";
+import { ValueType } from "react-select/lib/types";
 
 const bookService = new BookService();
 const authorService = new AuthorService();
@@ -84,15 +85,9 @@ export default class Books extends React.Component<any,any> {
         });
     };
 
-    private async addToMultiselectValue(option: any): Promise<void> {
+    private async addToMultiselectValue(option: ValueType<IAuthor>): Promise<void> {
         await this.setState((prevState: {
-            newBook: {
-                title: string,
-                type: string,
-                description: string,
-                authors: [],
-                price: string
-            }
+            newBook: IUser
         }) => ({
             newBook: {
                 ...prevState.newBook,
@@ -106,7 +101,9 @@ export default class Books extends React.Component<any,any> {
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
-        await this.setState((prevState: any) => ({
+        await this.setState((prevState: {
+            newBook: IUser
+        }) => ({
             newBook: {
                 ...prevState.newBook,
                 [name]: value,
@@ -222,7 +219,7 @@ export default class Books extends React.Component<any,any> {
         };
     };
 
-    private async handlePageChange(pageNumber: any): Promise<void> {
+    private async handlePageChange(pageNumber: number): Promise<void> {
         await this.setState({activePage: pageNumber});
         bookService.getBookForPage(this.state.activePage, this.state.totalItemPerPage).then((res) => {
           this.setState({
