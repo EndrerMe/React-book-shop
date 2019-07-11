@@ -75,7 +75,15 @@ export default class Users extends React.Component<any,any> {
                 [name]: value,
             });
         } else {
-            this.setState((prevState: any) => ({
+            this.setState((prevState: {
+                user: {
+                    userRole: string, 
+                    userGender: string, 
+                    userName: string, 
+                    userEmail: string, 
+                    userPass: string,
+                }
+            }) => ({
                 user: {
                     ...prevState.user,
                     [name]: value,

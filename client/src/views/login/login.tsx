@@ -31,7 +31,12 @@ class Login extends React.Component<any, any> {
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
-        this.setState((prevState: any) => ({
+        this.setState((prevState: {
+            user: {
+                userName: string,
+                userPass: string,
+            }
+        }) => ({
             user: {
                 ...prevState.user,
                 [name]: value,
@@ -41,10 +46,6 @@ class Login extends React.Component<any, any> {
 
     private login(): void {
         this.props.login(this.state.user)
-        // this.props.store.dispatch({
-        //     type: "Login",
-        //     userData: 
-        // })
     };
 
     public render() {
